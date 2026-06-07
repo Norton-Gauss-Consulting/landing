@@ -8,6 +8,7 @@ import Thesis from "@/components/Thesis";
 import Practices from "@/components/Practices";
 import Framework from "@/components/Framework";
 import PracticesDetail from "@/components/PracticesDetail";
+import Compounding from "@/components/Compounding";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
         <Practices />
         <Framework />
         <PracticesDetail />
+        <Compounding />
       </div>
       <Footer />
     </>
