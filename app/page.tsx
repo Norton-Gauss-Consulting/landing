@@ -7,6 +7,7 @@ import ManifestoBanner from "@/components/ManifestoBanner";
 import Thesis from "@/components/Thesis";
 import Practices from "@/components/Practices";
 import Framework from "@/components/Framework";
+import PracticesDetail from "@/components/PracticesDetail";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         <Thesis />
         <Practices />
         <Framework />
+        <PracticesDetail />
       </div>
       <Footer />
     </>
