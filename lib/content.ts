@@ -90,13 +90,43 @@ export const featured = {
 };
 
 // ─── Five practices ───────────────────────────────────────────────
-export type Service = { num: string; id: string; title: string; meta: string; summary: string };
+export type Service = { num: string; id: string; title: string; meta: string; summary: string; bullets: string[]; kpi: Kpi[] };
 export const services: Service[] = [
-  { num: "01", id: "automation", title: "Hyper-Automation", meta: "Workflows · RPA · Integrations · Process orchestration", summary: "We eliminate repetitive work and connect the systems your operation already runs on. Workflow orchestration, RPA, document and data automation, and the API integrations that make them feel like one system instead of twenty." },
-  { num: "02", id: "agentic", title: "Agentic AI", meta: "AI agents · Multi-agent workflows · Human-in-the-loop", summary: "We design AI agents and AI-assisted workflows that can reason, act, escalate and support teams inside controlled business environments — with the evaluations, guardrails and monitoring that keep them safe in production." },
-  { num: "03", id: "transformation", title: "Digital Transformation", meta: "Operating model · Technology roadmap · Programme delivery", summary: "We align business strategy, operating model, technology roadmap and execution. End-to-end programmes — diagnosis through delivery — with the change discipline that makes either one stick after the steering committee adjourns." },
-  { num: "04", id: "software", title: "Custom Software Development", meta: "Web apps · Portals · Internal platforms · APIs", summary: "We build the software off-the-shelf systems cannot — internal platforms, customer portals, workflow tools, dashboards, APIs and AI-enabled applications, engineered by senior full-stack teams that ship and run what they build." },
-  { num: "05", id: "cloud-edge", title: "Cloud & Edge", meta: "Architecture · Migration · Cloud-native · Edge compute", summary: "We modernise infrastructure, deployment and distributed systems — multi-cloud platforms, cloud-native applications and edge compute — engineered for elasticity, governance and unit economics that hold at scale." },
+  {
+    num: "01", id: "automation", title: "Hyper-Automation",
+    meta: "Workflows · RPA · Integrations · Process orchestration",
+    summary: "We eliminate repetitive work and connect the systems your operation already runs on. Workflow orchestration, RPA, document and data automation, and the API integrations that make them feel like one system instead of twenty.",
+    bullets: ["Workflow automation & orchestration", "RPA & robotic process automation", "API & systems integration", "Document and data automation", "Process intelligence & re-engineering", "Business-process optimisation"],
+    kpi: [{ k: "Median cycle-time cut", v: "−60%" }, { k: "STP improvement (avg.)", v: "+30pts" }],
+  },
+  {
+    num: "02", id: "agentic", title: "Agentic AI",
+    meta: "AI agents · Multi-agent workflows · Human-in-the-loop",
+    summary: "We design AI agents and AI-assisted workflows that can reason, act, escalate and support teams inside controlled business environments — with the evaluations, guardrails and monitoring that keep them safe in production.",
+    bullets: ["AI agents for internal operations", "Multi-agent workflows", "AI assistants & copilots", "Human-in-the-loop automation", "AI-powered decision support", "Evals, guardrails & monitoring"],
+    kpi: [{ k: "Median process time saved", v: "−55%" }, { k: "Live agent deployments", v: "20+" }],
+  },
+  {
+    num: "03", id: "transformation", title: "Digital Transformation",
+    meta: "Operating model · Technology roadmap · Programme delivery",
+    summary: "We align business strategy, operating model, technology roadmap and execution. End-to-end programmes — diagnosis through delivery — with the change discipline that makes either one stick after the steering committee adjourns.",
+    bullets: ["Operating-model redesign", "Process modernisation", "Business-technology roadmap", "Transformation programme execution", "Change enablement & adoption", "Outcome instrumentation"],
+    kpi: [{ k: "On-time, on-budget delivery", v: "92%" }, { k: "Adoption at +90 days (avg.)", v: "78%" }],
+  },
+  {
+    num: "04", id: "software", title: "Custom Software Development",
+    meta: "Web apps · Portals · Internal platforms · APIs",
+    summary: "We build the software off-the-shelf systems cannot — internal platforms, customer portals, workflow tools, dashboards, APIs and AI-enabled applications, engineered by senior full-stack teams that ship and run what they build.",
+    bullets: ["Web & internal applications", "Customer portals", "Workflow & operations tools", "Dashboards & analytics surfaces", "API & integration products", "AI-enabled applications"],
+    kpi: [{ k: "Senior-only engineering pods", v: "100%" }, { k: "Typical MVP to production", v: "8–14 weeks" }],
+  },
+  {
+    num: "05", id: "cloud-edge", title: "Cloud & Edge",
+    meta: "Architecture · Migration · Cloud-native · Edge compute",
+    summary: "We modernise infrastructure, deployment and distributed systems — multi-cloud platforms, cloud-native applications and edge compute — engineered for elasticity, governance and unit economics that hold at scale.",
+    bullets: ["Cloud architecture & landing zones", "Cloud migration", "Cloud-native application engineering", "Edge computing", "Infrastructure modernisation", "Scalable, secure deployment foundations"],
+    kpi: [{ k: "Median cloud-spend reduction", v: "−35%" }, { k: "Reference migration cadence", v: "8 weeks" }],
+  },
 ];
 
 // ─── Delivery framework — six stages ──────────────────────────────
@@ -263,5 +293,140 @@ export const impact: { lede: string; big: ImpactBig[]; detailed: ImpactDetail[] 
     { v: "+4", unit: "pts", k: "Margin uplift", d: "On agentic-pricing & decision-support engagements." },
     { v: "20", unit: "+", k: "Live agent deployments", d: "Across active 2025 agentic AI mandates." },
     { v: "100", unit: "%", k: "Senior-only delivery", d: "Every pod is staffed with senior operators." },
+  ],
+};
+
+// ─── Case study detail (Case page) ────────────────────────────────
+export const caseDetail = {
+  tag: "Agentic AI · Hyper-Automation · Custom Software",
+  client: "Top-10 European Bank",
+  region: "EMEA · 11 countries",
+  duration: "14 months",
+  team: "9 engineers · 2 architects · 1 partner",
+  titleA: "A treasury close that",
+  titleEm: "runs itself",
+  titleB: "between 02:00 and 06:00.",
+  subtitle:
+    "How a top-10 European bank compressed an 11-country month-end close from three days to one overnight window — and gave the treasury team five days back per cycle.",
+  sections: [
+    {
+      h: "The situation",
+      body: [
+        "A top-10 European bank closed the books across <strong>11 country ledgers</strong> on a 3-day cycle that consumed treasury, finance ops and IT every month. The work was a series of manual handoffs across ten systems, with a long tail of exceptions handled in spreadsheets.",
+        "Adding regulators, acquisitions and a thinning back-office made the run untenable. The CFO needed a close that scaled with the business — and a finance team that did not lose a working week to it every month.",
+      ],
+    },
+    {
+      h: "The diagnosis",
+      body: [
+        "Six weeks of frontline diagnostics found that <strong>74% of close work was repeatable reconciliation</strong>, and another 18% was exception handling that followed predictable patterns. The root constraint was not the GLs — it was the absence of an orchestration layer that could drive them all to one regulator-ready state.",
+        "We sized the prize, scoped the platform and contracted against measurable outcomes: cycle time, manual touches, and adoption at +90 days.",
+      ],
+    },
+    {
+      h: "What we built",
+      body: [
+        "A close-orchestration platform built on top of the existing GLs, integrating with ERP, treasury and reporting. An <strong>agent fleet for reconciliation and exception triage</strong> with policy-bound auto-actions. A custom finance-ops portal for the treasury team to monitor the close, approve exceptions and export regulator-ready packages.",
+        "Around it: an evaluation harness for every agent path, integration tests across the ledger network, and an adoption programme that took the treasury team from sceptics to operators in a single cycle.",
+      ],
+    },
+  ],
+  results: [
+    { v: "3d → 5h", k: "Close cycle", d: "Eleven country ledgers, end to end." },
+    { v: "−92%", k: "Manual touches", d: "Per close cycle, after second wave." },
+    { v: "78%", k: "Adoption at +90d", d: "Of the treasury team using the platform daily." },
+    { v: "5 days", k: "Recovered per cycle", d: "Returned to higher-value treasury work." },
+  ],
+  quote: {
+    text: "Norton-Gauss did not bring us a product. They brought us a way of running the close that we could own — and a small team that built it with us.",
+    who: "Group CFO · European Bank",
+  },
+  timeline: [
+    { phase: "Phase 01", h: "Discover", d: "Close-process map across 11 ledgers and 10 systems.", dur: "6 weeks" },
+    { phase: "Phase 02", h: "Diagnose", d: "Constraint analysis, exception-pattern catalogue, business case.", dur: "4 weeks" },
+    { phase: "Phase 03", h: "Design", d: "Orchestration architecture, agent design, ops-portal product spec.", dur: "8 weeks" },
+    { phase: "Phase 04", h: "Build", d: "Platform build-out, agent factory, portal, ledger integrations.", dur: "7 months" },
+    { phase: "Phase 05", h: "Operate", d: "First close wave, adoption programme, exception triage live.", dur: "3 months" },
+  ],
+};
+
+// ─── Careers ───────────────────────────────────────────────────────
+export type Job = {
+  id: string; title: string; dept: string; location: string; type: string; comp: string;
+  teaser: string; about: string; you: string[]; do: string[];
+};
+export const careers: {
+  eyebrow: string; h1A: string; h1Em: string; h1B: string; sub: string;
+  perks: { k: string; v: string }[]; departments: string[]; jobs: Job[];
+} = {
+  eyebrow: "Careers · Build with us",
+  h1A: "Build the ",
+  h1Em: "systems behind",
+  h1B: " modern operations.",
+  sub: "We hire senior operators — engineers, architects and consultants who have run the systems they are now re-architecting. Pyramid leverage produces decks; operator leverage produces production change. We choose operator leverage every time.",
+  perks: [
+    { k: "Senior-only firm", v: "No pyramid leverage — every engagement is staffed with people who have run production." },
+    { k: "Outcome contracts", v: "You ship into operations, not into slide decks. Outcomes are instrumented and contracted." },
+    { k: "Compensation", v: "Above-market base + outcome-linked variable + meaningful equity in Norton-Gauss Labs." },
+    { k: "Time & remote", v: "Async-first across three HQs (Paris · Sheridan · São Paulo). Four weeks of protected focus time per year." },
+  ],
+  departments: ["All", "Engineering", "Architecture", "Consulting", "Research"],
+  jobs: [
+    {
+      id: "lead-agent-eng", title: "Lead Agentic AI Engineer", dept: "Engineering",
+      location: "Paris · Sheridan · Remote", type: "Full-time", comp: "€180–240k + variable + equity",
+      teaser: "Lead the architecture of AI agents and multi-agent workflows that run in production at enterprise clients — from agent design through evaluation to operator UX.",
+      about: "You will shape how Norton-Gauss builds agentic systems for enterprise operators. You'll own architecture for a portfolio of agent deployments, from model selection through tool use, evaluation and operator UX, and pair with our research team on the frontier.",
+      you: ["8+ years building production software, including 2+ years on LLM-powered systems", "Deep experience with multi-agent orchestration (LangGraph, AutoGen, custom)", "Strong product instinct — you can design operator UX, not just APIs", "Track record of shipping into mission-critical enterprise operations", "Comfortable presenting architecture to C-level stakeholders"],
+      do: ["Architect agentic systems for 3–5 concurrent enterprise engagements", "Own the evaluation & guardrail discipline across the portfolio", "Mentor a small senior team (3–5 engineers)", "Pair with Norton-Gauss Labs on research that becomes the next product", "Represent the firm at industry events and design-partner sessions"],
+    },
+    {
+      id: "sr-platform-arch", title: "Senior Cloud & Edge Architect", dept: "Architecture",
+      location: "Paris · Remote EMEA", type: "Full-time", comp: "€160–220k + variable + equity",
+      teaser: "Design multi-cloud and edge platforms for enterprise clients across financial services, telecom and platform businesses.",
+      about: "You'll design the cloud and edge substrate that runs our clients' automation and AI platforms. You'll own architecture decisions worth millions of euros in run-rate and you'll be on the hook for them.",
+      you: ["10+ years platform / cloud architecture, with hands-on enterprise migrations", "Multi-cloud (AWS, Azure, GCP) and edge compute experience", "FinOps discipline — unit economics matter to you", "Comfortable in regulated environments (financial services, telecom)"],
+      do: ["Lead architecture for 3–4 cloud / edge programmes", "Own platform reference architectures across the firm", "Run cloud-cost reviews with client CFO offices", "Pair with engineering on automation and AI integration"],
+    },
+    {
+      id: "lead-software", title: "Lead Software Engineer · Custom Software", dept: "Engineering",
+      location: "Paris · São Paulo · Remote", type: "Full-time", comp: "€150–200k + variable + equity",
+      teaser: "Lead full-stack pods building tailored software — internal platforms, customer portals, AI-enabled applications — that ship to enterprise users.",
+      about: "You'll lead small senior pods building software that takes the place of off-the-shelf systems where they don't fit. You'll be hands-on, you'll own architecture, and you'll ship.",
+      you: ["10+ years shipping full-stack web applications", "Strong with modern TypeScript/React stacks and a backend language you actually like", "Have led product engineering teams of 3–6 engineers", "Comfortable being the single owner of a delivery line"],
+      do: ["Lead 2–3 concurrent custom-software builds", "Own architecture, code review and quality", "Mentor mid-level engineers across the firm", "Pair with design and product on operator UX"],
+    },
+    {
+      id: "partner-strategy", title: "Partner · Digital Transformation", dept: "Consulting",
+      location: "Sheridan · Paris", type: "Partner-track", comp: "€240k+ + carry",
+      teaser: "Own the digital-transformation practice. Run executive engagements with operators, investors and boards.",
+      about: "You'll lead Norton-Gauss's transformation practice — the executive thinking that shapes every programme we run. You'll work with C-suites, boards and investors on operating-model decisions worth nine figures.",
+      you: ["15+ years in strategy consulting or operating roles at scale", "Have led both diagnosis and execution of large transformation programmes", "Comfortable in the boardroom and in production", "Strong network in financial services, telecom or platform businesses"],
+      do: ["Own and grow the transformation practice", "Lead executive engagements end-to-end", "Develop our operating-model intellectual property", "Hire and coach senior consultants"],
+    },
+    {
+      id: "research-eval", title: "Research Engineer · Agent Evaluation", dept: "Research",
+      location: "Paris · Remote", type: "Full-time", comp: "€140–190k + variable + equity",
+      teaser: "Build the evaluation discipline that lets agentic systems run safely in production. Open-source contributor welcome.",
+      about: "You'll lead the research that turns agent reliability into an engineering discipline. You'll work across academic literature, our own production deployments and design-partner programmes.",
+      you: ["Strong ML engineering background, ideally with publications", "Have built or contributed to agent evaluation harnesses", "Comfortable shipping code into production", "Open-source contributor or willing to be"],
+      do: ["Design evaluation harnesses for production agentic systems", "Publish research on agent reliability", "Maintain Norton-Gauss Labs' open-source evaluation tooling"],
+    },
+    {
+      id: "consultant-ai", title: "Consultant · Agentic AI Strategy", dept: "Consulting",
+      location: "Paris · Sheridan", type: "Full-time", comp: "€110–160k + variable + equity",
+      teaser: "Translate agentic AI capabilities into concrete operating-model change for enterprise operators. Strategy plus engineering literacy.",
+      about: "You'll bridge our executive engagements with our engineering teams — turning operating-model questions into agentic-system specs and back into board-level economics.",
+      you: ["5–8 years strategy consulting or product strategy", "Strong engineering literacy — you can read a system diagram", "Have written business cases that survived a CFO", "Comfortable presenting at executive level"],
+      do: ["Lead strategy workstreams on 2–3 agentic engagements", "Write board-grade business cases", "Pair with engineering on operating-model design"],
+    },
+    {
+      id: "sr-automation", title: "Senior Engineer · Hyper-Automation", dept: "Engineering",
+      location: "Remote LATAM · São Paulo", type: "Full-time", comp: "Competitive + variable + equity",
+      teaser: "Build the workflow and integration layer that turns manual operations into systems clients rely on.",
+      about: "You'll be the engineer who turns spreadsheets and email threads into governed workflows. You'll own automation stacks across enterprise clients.",
+      you: ["6+ years in workflow / integration engineering", "Strong with workflow orchestrators, integration platforms and APIs", "Have shipped automation that survived real operations", "Comfortable with production support"],
+      do: ["Own automation for 2–3 client portfolios", "Build the firm's reference automation patterns", "Mentor junior engineers in the LATAM team"],
+    },
   ],
 };
