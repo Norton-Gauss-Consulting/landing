@@ -15,6 +15,7 @@ import ImpactV2 from "@/components/ImpactV2";
 import Cases from "@/components/Cases";
 import ExtraCases from "@/components/ExtraCases";
 import Innovation from "@/components/Innovation";
+import Manifesto from "@/components/Manifesto";
 
 export default function Home() {
   return (
@@ -35,6 +36,7 @@ export default function Home() {
         <Cases />
         <ExtraCases />
         <Innovation />
+        <Manifesto />
       </div>
       <Footer />
     </>
