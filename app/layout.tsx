@@ -16,9 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="dark">
       <head>
-        {/* Functional faces the design relies on (mono eyebrows, serif lime
-            italics). Brand display/body faces are wired via @font-face in
-            globals.css (Ancorli / Techno Nue, Arial fallback). */}
+        {/* Handoff stand-ins (Bricolage Grotesque / Inter Tight) so the
+            preview matches the design until the real brand files are dropped
+            into /public/fonts; Ancorli / Techno Nue take precedence via
+            @font-face in globals.css when present, Arial is the alternate.
+            JetBrains Mono + Instrument Serif are functional faces the design
+            relies on (mono eyebrows, serif lime italics). */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -26,7 +29,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter+Tight:wght@300;400;450;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
           rel="stylesheet"
         />
       </head>

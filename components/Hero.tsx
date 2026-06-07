@@ -1,7 +1,6 @@
 "use client";
 
 // Norton-Gauss · hero (ported from src/sections.jsx)
-import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Arr } from "./icons";
@@ -13,15 +12,6 @@ import { hero, marquee } from "@/lib/content";
 const HeroMesh = dynamic(() => import("./HeroMesh"), { ssr: false });
 
 export default function Hero() {
-  const [agentsCount, setAgentsCount] = useState(247);
-  useEffect(() => {
-    const id = setInterval(
-      () => setAgentsCount((c) => c + Math.floor(Math.random() * 3) - 1),
-      2400
-    );
-    return () => clearInterval(id);
-  }, []);
-
   return (
     <>
       <section className="hero">
@@ -74,11 +64,7 @@ export default function Hero() {
               {hero.counters.map((c, i) => (
                 <div key={i}>
                   <div className="v">
-                    {i === 0 ? (
-                      <Counter value={String(agentsCount)} />
-                    ) : (
-                      <Counter value={c.v} unit={c.unit} />
-                    )}
+                    <Counter value={c.v} unit={c.unit} />
                   </div>
                   <div className="k">{c.k}</div>
                 </div>
