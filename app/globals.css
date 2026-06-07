@@ -1,0 +1,486 @@
+/* Norton-Gauss · Operating Cortex
+   Ported from the design handoff (src/styles.css + src/styles-v3.css).
+   Source of truth: the Claude Design handoff. Visual rules are matched 1:1.
+
+   Port-specific changes (do not affect appearance):
+   · Brand fonts wired per the branding guideline — Ancorli (primary/display)
+     and Techno Nue (secondary/body), with Arial as the official alternate.
+     See @font-face below. JetBrains Mono + Instrument Serif (functional faces
+     the design relies on) are loaded via <link> in app/layout.tsx.
+   · The custom-cursor `cursor: none` rules are intentionally omitted until the
+     cursor JS is ported, so the native cursor stays visible.            */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Brand fonts ─────────────────────────────────────────────────────
+   Drop the real Ancorli / Techno Nue web-font files into /public/fonts to
+   activate them. Until then, the stack falls through to Arial — the brand's
+   official alternate typeface. */
+@font-face {
+  font-family: 'Ancorli';
+  src: url('/fonts/Ancorli-Regular.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Techno Nue';
+  src: url('/fonts/TechnoNue-Regular.woff2') format('woff2');
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Techno Nue';
+  src: url('/fonts/TechnoNue-Bold.woff2') format('woff2');
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Brand */
+  --ng-lime: #D9FF35;
+  --ng-lime-bright: #E6FF60;
+  --ng-lime-dim: rgba(217, 255, 53, 0.16);
+  --ng-grey: #808080;
+  --ng-teal: #234234;
+
+  /* Surfaces (dark) */
+  --ng-bg: #08110F;
+  --ng-surface: #0C1A18;
+  --ng-surface-2: #112520;
+  --ng-line: #1A2E29;
+  --ng-line-strong: #234234;
+  --ng-line-soft: rgba(255, 255, 255, 0.06);
+
+  /* Ink */
+  --ng-ink: #F2F1EC;
+  --ng-ink-mute: #8DA09B;
+  --ng-ink-dim: #5A6E6A;
+
+  /* Fonts — Ancorli (primary) + Techno Nue (secondary), Arial fallback */
+  --font-display: 'Ancorli', Arial, system-ui, sans-serif;
+  --font-body: 'Techno Nue', Arial, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-serif: 'Instrument Serif', 'Times New Roman', serif;
+
+  /* Motion */
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --ease-out: cubic-bezier(.16,.84,.34,1);
+  --ease-in-out: cubic-bezier(.65,0,.35,1);
+
+  /* Layout */
+  --maxw: 1440px;
+  --gutter: 56px;
+  --gutter-sm: 32px;
+
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --ng-bg: #F4F2EA;
+  --ng-surface: #EDEAE0;
+  --ng-surface-2: #FFFFFF;
+  --ng-line: #D9D3C5;
+  --ng-line-strong: #234234;
+  --ng-line-soft: rgba(0, 0, 0, 0.06);
+  --ng-ink: #0A1614;
+  --ng-ink-mute: #4A5A57;
+  --ng-ink-dim: #7E8A87;
+  color-scheme: light;
+}
+
+/* ─── Reset ───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+html, body {
+  background: var(--ng-bg);
+  color: var(--ng-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'ss01', 'cv11';
+  overflow-x: hidden;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
+::selection { background: var(--ng-lime); color: var(--ng-bg); }
+
+/* ─── Container + utility ────────────────────────────────────────── */
+.container { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+.container-wide { max-width: 1680px; margin: 0 auto; padding: 0 var(--gutter); }
+
+.mono { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ng-ink-mute); }
+.mono-sm { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ng-ink-dim); }
+.serif { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--ng-lime);
+}
+.eyebrow::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--ng-lime);
+  box-shadow: 0 0 0 0 rgba(217,255,53,.55); animation: pulse 2.2s infinite;
+}
+.eyebrow.dim { color: var(--ng-ink-mute); }
+.eyebrow.dim::before { background: var(--ng-ink-mute); animation: none; }
+.eyebrow.bar::before {
+  width: 28px; height: 1px; border-radius: 0; animation: none;
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(217,255,53,.55); }
+  70%  { box-shadow: 0 0 0 10px rgba(217,255,53,0); }
+  100% { box-shadow: 0 0 0 0 rgba(217,255,53,0); }
+}
+
+/* ─── Type scale ─────────────────────────────────────────────────── */
+.display-hero {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 100;
+  font-weight: 500;
+  font-size: clamp(72px, 11.5vw, 232px);
+  line-height: 0.88;
+  letter-spacing: -0.035em;
+}
+.display-3xl { font-family: var(--font-display); font-variation-settings: 'wdth' 96; font-weight: 500; font-size: clamp(56px, 7.5vw, 144px); line-height: 0.9; letter-spacing: -0.035em; }
+.display-2xl { font-family: var(--font-display); font-weight: 500; font-size: clamp(48px, 5.5vw, 104px); line-height: 0.94; letter-spacing: -0.028em; }
+.display-xl  { font-family: var(--font-display); font-weight: 500; font-size: clamp(36px, 4.2vw, 72px); line-height: 0.98; letter-spacing: -0.022em; }
+.display-lg  { font-family: var(--font-display); font-weight: 500; font-size: clamp(28px, 2.6vw, 44px); line-height: 1.05; letter-spacing: -0.015em; }
+.display-md  { font-family: var(--font-display); font-weight: 500; font-size: 22px; line-height: 1.18; letter-spacing: -0.008em; }
+
+.lede { font-family: var(--font-body); font-size: clamp(18px, 1.4vw, 22px); line-height: 1.45; color: var(--ng-ink-mute); max-width: 60ch; }
+.lede.big { font-size: clamp(20px, 1.7vw, 26px); line-height: 1.36; color: var(--ng-ink); }
+
+.lime { color: var(--ng-lime); }
+.serif-em { font-family: var(--font-serif); font-style: italic; font-weight: 400; }
+
+/* ─── Buttons ────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 22px; font-family: var(--font-body); font-weight: 500; font-size: 14.5px;
+  letter-spacing: -0.005em; border-radius: 999px; position: relative;
+  transition: transform 0.4s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+  white-space: nowrap;
+}
+.btn .arr-wrap, .btn svg { transition: transform 0.4s var(--ease); }
+.btn:hover .arr-wrap, .btn:hover svg { transform: translate(3px, -3px); }
+
+.btn.primary { background: var(--ng-lime); color: var(--ng-bg); }
+.btn.primary:hover { background: var(--ng-lime-bright); }
+.btn.ghost { color: var(--ng-ink); border: 1px solid var(--ng-line); background: transparent; }
+.btn.ghost:hover { border-color: var(--ng-lime); color: var(--ng-lime); }
+.btn.solid-dark { background: var(--ng-surface); color: var(--ng-ink); border: 1px solid var(--ng-line); }
+.btn.solid-dark:hover { background: var(--ng-surface-2); border-color: var(--ng-lime); }
+
+/* ─── Top status bar (above nav) ─────────────────────────────────── */
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px var(--gutter); font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--ng-ink-dim);
+  border-bottom: 1px solid var(--ng-line);
+  background: var(--ng-bg);
+}
+.topbar > div { display: flex; align-items: center; gap: 22px; }
+.topbar .live { color: var(--ng-lime); display: inline-flex; align-items: center; gap: 8px; }
+.topbar .live::before { content: ''; width: 6px; height: 6px; background: var(--ng-lime); border-radius: 50%; animation: pulse 2.2s infinite; }
+
+/* ─── Nav ────────────────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 60;
+  background: color-mix(in oklab, var(--ng-bg) 88%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--ng-line);
+}
+.nav-inner {
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: center; gap: 48px; padding: 18px var(--gutter); max-width: var(--maxw); margin: 0 auto;
+}
+.nav-logo { display: flex; align-items: center; gap: 12px; }
+.nav-logo img { height: 28px; width: auto; }
+.nav-logo .wm {
+  font-family: var(--font-display); font-weight: 600; font-size: 18px;
+  letter-spacing: -0.008em; line-height: 1;
+}
+.nav-links { display: flex; gap: 4px; justify-content: center; }
+.nav-links button {
+  font-family: var(--font-body); font-size: 14px; font-weight: 450; color: var(--ng-ink-mute);
+  padding: 8px 16px; border-radius: 999px; transition: color 0.2s, background 0.2s;
+}
+.nav-links button:hover { color: var(--ng-ink); background: var(--ng-line-soft); }
+.nav-links button.active { color: var(--ng-bg); background: var(--ng-lime); }
+.nav-actions { display: flex; align-items: center; gap: 16px; }
+
+/* ─── HERO ───────────────────────────────────────────────────────── */
+.hero {
+  position: relative; padding: 0; overflow: hidden;
+  min-height: 920px; border-bottom: 1px solid var(--ng-line);
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0; pointer-events: auto;
+  /* Hide the sim across the text area; let it bloom on the right half */
+  mask-image: linear-gradient(to right, transparent 0%, transparent 30%, rgba(0,0,0,0.65) 48%, black 62%, black 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 30%, rgba(0,0,0,0.65) 48%, black 62%, black 100%);
+}
+.hero-bg::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 70% 95% at 100% 50%, transparent 0%, rgba(8,17,15,0.35) 70%, var(--ng-bg) 100%);
+  z-index: 2;
+}
+
+.hero-inner {
+  position: relative; z-index: 3; padding: 84px var(--gutter) 120px;
+  max-width: 1680px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.1fr 1fr;
+  gap: 64px; align-items: end; min-height: 720px;
+}
+
+.hero-l { display: flex; flex-direction: column; gap: 36px; max-width: 880px; min-width: 0; }
+.hero-h1 {
+  font-family: var(--font-display); font-variation-settings: 'wdth' 90; font-weight: 500;
+  font-size: clamp(48px, 6vw, 112px); line-height: 0.88; letter-spacing: -0.038em;
+}
+.hero-h1 .row { display: block; overflow: hidden; padding: 0.02em 0; }
+.hero-h1 .row > .word { display: inline-block; will-change: transform; }
+.hero-h1 .row em.lime-italic {
+  font-style: italic; font-family: var(--font-serif); font-weight: 400;
+  color: var(--ng-lime); font-size: 1.06em; line-height: 1;
+  font-variation-settings: normal; padding: 0 0.04em;
+}
+.hero-h1 .row > .word { animation: heroIn 1s var(--ease-out) both; }
+.hero-h1 .row:nth-child(1) > .word { animation-delay: 0s; }
+.hero-h1 .row:nth-child(2) > .word { animation-delay: 0.12s; }
+.hero-h1 .row:nth-child(3) > .word { animation-delay: 0.24s; }
+@keyframes heroIn { from { transform: translateY(108%); opacity: 0.001; } to { transform: translateY(0); opacity: 1; } }
+
+.hero-sub { font-family: var(--font-body); font-size: clamp(17px, 1.32vw, 21px); line-height: 1.45; color: var(--ng-ink-mute); max-width: 56ch; }
+.hero-sub strong { color: var(--ng-ink); font-weight: 500; }
+
+.hero-ctas { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 4px; }
+
+.hero-r {
+  display: flex; flex-direction: column; gap: 16px;
+  align-self: flex-end; padding-bottom: 16px;
+}
+
+/* Hero ops feed */
+.opsfeed {
+  width: 460px; max-width: 100%; background: rgba(8, 17, 15, 0.72);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--ng-line-strong);
+  border-radius: 12px; overflow: hidden;
+  box-shadow: 0 32px 80px -32px rgba(0,0,0,.6);
+}
+.opsfeed-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 16px; border-bottom: 1px solid var(--ng-line);
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ng-ink-dim);
+}
+.opsfeed-head .tag { color: var(--ng-lime); display: inline-flex; align-items: center; gap: 8px; }
+.opsfeed-head .tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--ng-lime); animation: pulse 2.2s infinite; }
+.opsfeed-rows {
+  font-family: var(--font-mono); font-size: 11px; line-height: 1.55;
+  padding: 8px 0; max-height: 280px; overflow: hidden;
+  position: relative;
+}
+.opsfeed-row {
+  display: grid; grid-template-columns: 60px 64px 1fr auto;
+  gap: 14px; padding: 5px 16px;
+  color: var(--ng-ink-mute);
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+  animation: feedSlide 0.45s var(--ease-out);
+}
+.opsfeed-row.new { background: rgba(217, 255, 53, 0.04); }
+.opsfeed-row .ts { color: var(--ng-ink-dim); }
+.opsfeed-row .agent { color: var(--ng-lime); }
+.opsfeed-row .ev { color: var(--ng-ink); }
+.opsfeed-row .lat { color: var(--ng-ink-dim); text-align: right; }
+@keyframes feedSlide { from { transform: translateY(-12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* Hero counters */
+.hero-counters {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border: 1px solid var(--ng-line-strong); border-radius: 12px;
+  background: rgba(8,17,15,0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); overflow: hidden;
+}
+.hero-counters > div { padding: 14px 16px; border-right: 1px solid var(--ng-line); }
+.hero-counters > div:last-child { border-right: 0; }
+.hero-counters .v { font-family: var(--font-display); font-weight: 500; font-size: 22px; line-height: 1; letter-spacing: -0.012em; color: var(--ng-lime); }
+.hero-counters .v small { font-size: 13px; color: var(--ng-ink); margin-left: 2px; }
+.hero-counters .k { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ng-ink-dim); margin-top: 4px; }
+
+/* Hero marquee bottom */
+.hero-marquee {
+  position: relative; z-index: 4;
+  border-top: 1px solid var(--ng-line); border-bottom: 1px solid var(--ng-line);
+  background: var(--ng-bg);
+  overflow: hidden;
+}
+.hero-marquee-track {
+  display: flex; gap: 56px; padding: 14px 56px;
+  animation: marquee 50s linear infinite; white-space: nowrap;
+}
+.hero-marquee span {
+  font-family: var(--font-display); font-weight: 500; font-size: 18px;
+  letter-spacing: -0.005em; color: var(--ng-ink);
+  display: inline-flex; align-items: center; gap: 24px;
+}
+.hero-marquee span::after { content: ''; width: 6px; height: 6px; background: var(--ng-lime); border-radius: 50%; }
+.hero-marquee span.muted { color: var(--ng-ink-dim); }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ─── Section frame ─────────────────────────────────────────────── */
+section { position: relative; }
+.section-pad { padding: 140px 0; }
+.section-pad-sm { padding: 100px 0; }
+.section-tag {
+  display: flex; align-items: center; gap: 56px; padding: 24px var(--gutter);
+  max-width: var(--maxw); margin: 0 auto;
+  border-top: 1px solid var(--ng-line);
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ng-ink-dim);
+}
+.section-tag .num { color: var(--ng-lime); }
+
+.section-head {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px;
+  align-items: end; margin-bottom: 80px;
+}
+.section-head .right { color: var(--ng-ink-mute); font-size: 18px; line-height: 1.5; max-width: 50ch; padding-bottom: 8px; }
+
+/* ─── Page transitions ──────────────────────────────────────────── */
+.page-enter { animation: pageIn 0.5s var(--ease-out) both; }
+@keyframes pageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ─── Footer ────────────────────────────────────────────────────── */
+.footer { padding: 100px 0 36px; background: var(--ng-bg); }
+.footer .top {
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+  gap: 56px; padding-bottom: 72px; border-bottom: 1px solid var(--ng-line);
+}
+.footer .top h5 { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ng-ink-dim); margin-bottom: 18px; }
+.footer .top ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer .top a { font-size: 14px; color: var(--ng-ink); transition: color 0.2s; }
+.footer .top a:hover { color: var(--ng-lime); }
+.footer .brand img { height: 30px; margin-bottom: 22px; }
+.footer .brand p { font-size: 14px; color: var(--ng-ink-mute); line-height: 1.55; max-width: 36ch; }
+.footer .brand .addr { font-family: var(--font-mono); font-size: 11px; color: var(--ng-ink-dim); margin-top: 18px; letter-spacing: 0.06em; }
+.footer .bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 32px; font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--ng-ink-dim);
+}
+.footer .bottom .tagline { font-family: var(--font-display); font-style: italic; font-size: 14px; color: var(--ng-ink); letter-spacing: -0.005em; text-transform: none; }
+
+/* ════════════════════════════════════════════════════════════════
+   v3 overrides — loaded AFTER the base rules, so where they overlap
+   these win. (Ported from src/styles-v3.css; sections not yet built
+   are included so later ports inherit the correct styling.)
+   ════════════════════════════════════════════════════════════════ */
+
+/* ─── Global size adjustments ─────────────────────────────────── */
+.display-2xl { font-size: clamp(40px, 4.2vw, 76px); line-height: 0.96; letter-spacing: -0.024em; }
+.display-xl  { font-size: clamp(32px, 3.4vw, 56px); }
+.thesis-h { font-size: clamp(36px, 4.4vw, 72px); }
+.final-cta h2 { font-size: clamp(48px, 6vw, 112px); }
+
+.section-head { margin-bottom: 64px; }
+.section-pad { padding: 120px 0; }
+.section-pad-sm { padding: 96px 0; }
+.section-tag { padding: 22px var(--gutter); }
+
+/* ─── HERO polish ─────────────────────────────────────────────── */
+.hero { min-height: 940px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 8px 14px 8px 8px; border: 1px solid var(--ng-line-strong);
+  border-radius: 999px; background: rgba(8,17,15,0.6);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  width: fit-content;
+}
+.hero-badge .pill {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ng-bg); background: var(--ng-lime);
+  padding: 4px 8px; border-radius: 999px;
+}
+.hero-badge .label {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ng-ink-mute);
+}
+.hero-h1 { font-size: clamp(56px, 7.2vw, 144px); line-height: 0.86; letter-spacing: -0.042em; }
+.hero-l { max-width: 920px; }
+.hero-l .hero-h1 .row em.lime-italic { font-size: 1.06em; }
+
+/* ─── GSAP reveal classes (used by motion layer, ported later) ─── */
+.gsap-reveal { opacity: 0; transform: translateY(28px); }
+.gsap-reveal-x { opacity: 0; transform: translateX(40px); }
+.gsap-scale { opacity: 0; transform: scale(0.96); }
+
+/* ════════════════════════════════════════════════════════════════
+   MOTION v3 — hero mesh host. (Custom-cursor `cursor: none` rules are
+   intentionally NOT ported yet — the cursor JS isn't wired, so we keep
+   the native cursor visible.)
+   ════════════════════════════════════════════════════════════════ */
+.hero { min-height: 980px; }
+.hero-bg {
+  /* Open up the mask so the mesh can bloom further into the hero
+     without crowding the headline. */
+  mask-image: linear-gradient(to right, transparent 0%, transparent 18%, rgba(0,0,0,0.55) 38%, black 58%, black 100%) !important;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 18%, rgba(0,0,0,0.55) 38%, black 58%, black 100%) !important;
+}
+.hero-mesh-host {
+  position: absolute; inset: 0;
+  pointer-events: auto;
+}
+.hero-mesh-host canvas {
+  display: block; width: 100%; height: 100%;
+  /* gentle radial fade so edges don't slam to bg */
+  mask-image: radial-gradient(ellipse 78% 78% at 62% 50%, black 35%, transparent 92%);
+  -webkit-mask-image: radial-gradient(ellipse 78% 78% at 62% 50%, black 35%, transparent 92%);
+}
+/* Soft halo behind the mesh */
+.hero::after {
+  content: '';
+  position: absolute; right: -6%; top: 50%; transform: translateY(-50%);
+  width: 820px; height: 820px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(217,255,53,0.16) 0%, rgba(217,255,53,0.04) 35%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Hero H1 scramble — per-char spans (motion layer) ────────── */
+.hero-h1 .ng-char {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'ss01';
+  transition: color 0.25s ease;
+}
+.hero-h1 .ng-char:hover { color: var(--ng-lime); }
+
+/* ─── Word-by-word reveal — outer clip, inner translate ─────── */
+.ng-w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.08em 0.02em;
+  margin: -0.08em -0.02em;
+}
+.ng-w-i {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* ─── Reduce motion fallback ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ng-w-i { transform: none !important; opacity: 1 !important; }
+}
