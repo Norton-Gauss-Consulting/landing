@@ -12,6 +12,7 @@ import Compounding from "@/components/Compounding";
 import Roadmaps from "@/components/Roadmaps";
 import WorldMap from "@/components/WorldMap";
 import ImpactV2 from "@/components/ImpactV2";
+import Cases from "@/components/Cases";
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
         <Roadmaps />
         <WorldMap />
         <ImpactV2 />
+        <Cases />
       </div>
       <Footer />
     </>
