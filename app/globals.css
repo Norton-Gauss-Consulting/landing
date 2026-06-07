@@ -9,9 +9,9 @@
      to the handoff's stand-ins (Bricolage Grotesque / Inter Tight) and then
      to Arial, the brand's official alternate. JetBrains Mono + Instrument
      Serif (functional faces the design relies on) load via <link> in layout.
-   · The custom-cursor `cursor: none` rules and the Tweaks z-index rule are
-     intentionally omitted (their JS / the Tweaks panel are not part of this
-     port), so the native cursor stays visible. */
+   · The Tweaks z-index rule is intentionally omitted (the Tweaks panel is not
+     part of this port). The custom cursor is driven by components/MotionLayer
+     and hidden for reduced-motion / coarse pointers. */
 
 @tailwind base;
 @tailwind components;
@@ -1114,10 +1114,43 @@ section { position: relative; }
 .gsap-scale { opacity: 0; transform: scale(0.96); }
 
 /* ════════════════════════════════════════════════════════════════
-   MOTION v3 — Three.js mesh host + word-reveal scaffolding.
-   (Custom-cursor `cursor: none` rules are intentionally NOT ported —
-   the cursor JS isn't wired, so the native cursor stays visible.)
+   MOTION v3 — Three.js mesh host + word-reveal + custom cursor.
+   The native cursor is hidden only on fine pointers without a
+   reduced-motion preference (the custom cursor replaces it there).
    ════════════════════════════════════════════════════════════════ */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body { cursor: none; }
+  a, button, .btn, [role="button"] { cursor: none; }
+}
+@media (pointer: coarse) {
+  .ng-cursor { display: none !important; }
+  body { cursor: auto !important; }
+}
+
+/* Custom cursor (dot + ring) — elements appended by MotionLayer */
+.ng-cursor {
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+.ng-cursor-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--ng-lime);
+}
+.ng-cursor-ring {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid var(--ng-lime);
+  opacity: 0.55;
+  transition: width 0.25s var(--ease), height 0.25s var(--ease), opacity 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.ng-cursor-ring.on {
+  width: 56px; height: 56px; opacity: 0.85;
+  border-color: var(--ng-lime-bright);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ng-cursor { display: none !important; }
+}
 .hero { min-height: 980px; }
 .hero-bg {
   mask-image: linear-gradient(to right, transparent 0%, transparent 18%, rgba(0,0,0,0.55) 38%, black 58%, black 100%) !important;

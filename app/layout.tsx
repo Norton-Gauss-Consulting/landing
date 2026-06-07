@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import MotionLayer from "@/components/MotionLayer";
 
 export const metadata: Metadata = {
   title: "Norton-Gauss · Operating Cortex",
@@ -33,7 +34,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <MotionLayer />
+      </body>
     </html>
   );
 }
