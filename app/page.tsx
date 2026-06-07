@@ -6,6 +6,7 @@ import Hero from "@/components/Hero";
 import ManifestoBanner from "@/components/ManifestoBanner";
 import Thesis from "@/components/Thesis";
 import Practices from "@/components/Practices";
+import Framework from "@/components/Framework";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         <ManifestoBanner />
         <Thesis />
         <Practices />
+        <Framework />
       </div>
       <Footer />
     </>
