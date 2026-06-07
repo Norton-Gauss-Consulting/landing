@@ -10,6 +10,7 @@ import Framework from "@/components/Framework";
 import PracticesDetail from "@/components/PracticesDetail";
 import Compounding from "@/components/Compounding";
 import Roadmaps from "@/components/Roadmaps";
+import WorldMap from "@/components/WorldMap";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
         <PracticesDetail />
         <Compounding />
         <Roadmaps />
+        <WorldMap />
       </div>
       <Footer />
     </>
