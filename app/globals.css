@@ -20,27 +20,34 @@
 /* ─── Brand fonts ─────────────────────────────────────────────────────
    Drop the real Ancorli / Techno Nue web-font files into /public/fonts to
    activate them; they take precedence over the stand-ins below. */
+/* Ancorli (primary/display) — single weight; mapped across the range. */
 @font-face {
   font-family: 'Ancorli';
-  src: url('/fonts/Ancorli-Regular.woff2') format('woff2');
-  font-weight: 400 600;
+  src: url('/fonts/Ancorli.woff2') format('woff2');
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: 'Techno Nue';
-  src: url('/fonts/TechnoNue-Regular.woff2') format('woff2');
-  font-weight: 400 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Techno Nue';
-  src: url('/fonts/TechnoNue-Bold.woff2') format('woff2');
-  font-weight: 600 900;
-  font-style: normal;
-  font-display: swap;
-}
+
+/* Techno Nue (secondary/body) — full weight family, normal + italic. */
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Thin.woff2') format('woff2'); font-weight: 100; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Thin_Italic.woff2') format('woff2'); font-weight: 100; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-ExtraLight.woff2') format('woff2'); font-weight: 200; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-ExtraLight_Italic.woff2') format('woff2'); font-weight: 200; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Light.woff2') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Light_Italic.woff2') format('woff2'); font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Regular_Italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Medium_Italic.woff2') format('woff2'); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-SemiBold_Italic.woff2') format('woff2'); font-weight: 600; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Bold_Italic.woff2') format('woff2'); font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-ExtraBold.woff2') format('woff2'); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-ExtraBold_Italic.woff2') format('woff2'); font-weight: 800; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Heavy.woff2') format('woff2'); font-weight: 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Heavy_Italic.woff2') format('woff2'); font-weight: 900; font-style: italic; font-display: swap; }
 
 :root {
   /* Brand */
