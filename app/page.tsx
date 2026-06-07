@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import ManifestoBanner from "@/components/ManifestoBanner";
 import Thesis from "@/components/Thesis";
+import Practices from "@/components/Practices";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <Hero />
         <ManifestoBanner />
         <Thesis />
+        <Practices />
       </div>
       <Footer />
     </>
