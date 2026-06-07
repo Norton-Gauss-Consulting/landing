@@ -14,6 +14,7 @@ import WorldMap from "@/components/WorldMap";
 import ImpactV2 from "@/components/ImpactV2";
 import Cases from "@/components/Cases";
 import ExtraCases from "@/components/ExtraCases";
+import Innovation from "@/components/Innovation";
 
 export default function Home() {
   return (
@@ -33,6 +34,7 @@ export default function Home() {
         <ImpactV2 />
         <Cases />
         <ExtraCases />
+        <Innovation />
       </div>
       <Footer />
     </>
