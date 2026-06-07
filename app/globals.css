@@ -3,12 +3,11 @@
    Source of truth: the Claude Design handoff. Visual rules are matched 1:1.
 
    Port-specific changes (do not affect appearance):
-   · Brand fonts wired per the branding guideline — Ancorli (primary/display)
-     and Techno Nue (secondary/body). Real .woff2 files dropped into
-     /public/fonts activate automatically; until then the stack falls through
-     to the handoff's stand-ins (Bricolage Grotesque / Inter Tight) and then
-     to Arial, the brand's official alternate. JetBrains Mono + Instrument
-     Serif (functional faces the design relies on) load via <link> in layout.
+   · Type system follows the design handoff exactly: Bricolage Grotesque
+     (display), Inter Tight (body), Instrument Serif (serif), JetBrains Mono
+     (mono) — loaded via <link> in layout. The brand Ancorli face loads via
+     @font-face below and is scoped to the logo/wordmark only; it must not be
+     applied to display or body type.
    · The Tweaks z-index rule is intentionally omitted (the Tweaks panel is not
      part of this port). The custom cursor is driven by components/MotionLayer
      and hidden for reduced-motion / coarse pointers. */
@@ -17,10 +16,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Brand fonts ─────────────────────────────────────────────────────
-   Drop the real Ancorli / Techno Nue web-font files into /public/fonts to
-   activate them; they take precedence over the stand-ins below. */
-/* Ancorli (primary/display) — single weight; mapped across the range. */
+/* ─── Brand wordmark font ─────────────────────────────────────────────
+   Ancorli is the brand wordmark face. It is scoped to the logo/wordmark
+   only (--font-wordmark / .nav-logo .wm) and must NOT be applied to the
+   display or body type — those follow the design handoff's type system. */
 @font-face {
   font-family: 'Ancorli';
   src: url('/fonts/Ancorli.woff2') format('woff2');
@@ -28,26 +27,6 @@
   font-style: normal;
   font-display: swap;
 }
-
-/* Techno Nue (secondary/body) — full weight family, normal + italic. */
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Thin.woff2') format('woff2'); font-weight: 100; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Thin_Italic.woff2') format('woff2'); font-weight: 100; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-ExtraLight.woff2') format('woff2'); font-weight: 200; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-ExtraLight_Italic.woff2') format('woff2'); font-weight: 200; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Light.woff2') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Light_Italic.woff2') format('woff2'); font-weight: 300; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Regular_Italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Medium_Italic.woff2') format('woff2'); font-weight: 500; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-SemiBold_Italic.woff2') format('woff2'); font-weight: 600; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Bold_Italic.woff2') format('woff2'); font-weight: 700; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-ExtraBold.woff2') format('woff2'); font-weight: 800; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-ExtraBold_Italic.woff2') format('woff2'); font-weight: 800; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Heavy.woff2') format('woff2'); font-weight: 900; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Techno Nue'; src: url('/fonts/Techno_Nue-Heavy_Italic.woff2') format('woff2'); font-weight: 900; font-style: italic; font-display: swap; }
 
 :root {
   /* Brand */
@@ -70,13 +49,16 @@
   --ng-ink-mute: #8DA09B;
   --ng-ink-dim: #5A6E6A;
 
-  /* Fonts — Ancorli (primary) + Techno Nue (secondary); the handoff
-     stand-ins sit next in the stack so the preview matches until the real
-     brand files are added, with Arial as the official alternate. */
-  --font-display: 'Ancorli', 'Bricolage Grotesque', Arial, system-ui, sans-serif;
-  --font-body: 'Techno Nue', 'Inter Tight', 'Inter', Arial, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  /* Fonts — the design handoff's exact type system. These are the single
+     source of truth and must not be overridden with brand display faces.
+     Ancorli is reserved for the logo/wordmark only (see .nav-logo .wm). */
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Inter Tight', 'Inter', system-ui, sans-serif;
   --font-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Brand wordmark face — Ancorli, used only for the logo/wordmark. */
+  --font-wordmark: 'Ancorli', var(--font-display);
 
   /* Motion */
   --ease: cubic-bezier(.22,.61,.36,1);
@@ -218,7 +200,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .nav-logo { display: flex; align-items: center; gap: 12px; }
 .nav-logo img { height: 28px; width: auto; }
 .nav-logo .wm {
-  font-family: var(--font-display); font-weight: 600; font-size: 18px;
+  font-family: var(--font-wordmark); font-weight: 600; font-size: 18px;
   letter-spacing: -0.008em; line-height: 1;
 }
 .nav-links { display: flex; gap: 4px; justify-content: center; }
@@ -2360,4 +2342,317 @@ section { position: relative; }
   .book-stepper__item:nth-child(-n+2) { border-bottom: 1px solid var(--ng-line); }
   .book-faq__q { grid-template-columns: 40px 1fr 28px; gap: 14px; padding: 20px 4px; }
   .book-faq__a p { margin-left: 54px; }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   SUB-PAGE LAYOUTS — Practices detail, Case study, Careers, Job detail.
+   Reconstructed to the design system (the same editorial two-column
+   rows, bordered metric grids, mono eyebrows, display headings and
+   timeline rails used across the home page). Type tokens follow the
+   handoff: display = Bricolage Grotesque, serif = Instrument Serif.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ─── Shared sub-page hero shell ──────────────────────────────── */
+.svc-hero, .cs-hero, .careers-hero, .job-hero {
+  position: relative; overflow: hidden;
+  padding: 100px 0 72px; border-bottom: 1px solid var(--ng-line);
+}
+.svc-hero h1, .cs-hero h1, .careers-hero h1, .job-hero h1 {
+  font-family: var(--font-display); font-weight: 500;
+  line-height: 0.9; letter-spacing: -0.03em; max-width: 18ch;
+  position: relative; z-index: 4;
+}
+.svc-hero h1 em, .cs-hero h1 em, .careers-hero h1 em, .job-hero h1 em,
+.svc-hero h1 em.serif-em, .cs-hero h1 em.serif-em {
+  font-family: var(--font-serif); font-style: italic; font-weight: 400;
+  color: var(--ng-lime);
+}
+.svc-hero .lede, .cs-hero .lede, .careers-hero .lede { margin-top: 28px; position: relative; z-index: 4; }
+/* hero h1 sizes already set in the v3 block for svc-hero / cs-hero */
+.careers-hero h1 { font-size: clamp(44px, 5.4vw, 88px); }
+.job-hero h1 { font-size: clamp(40px, 5vw, 84px); }
+
+/* Hero with side meta/quick column (Case + Careers) */
+.cs-hero .top, .careers-hero .top {
+  display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 64px; align-items: end; position: relative; z-index: 4;
+}
+
+/* Case hero meta panel */
+.cs-hero .meta {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--ng-line-strong); border-radius: 14px; overflow: hidden;
+}
+.cs-hero .meta > div {
+  padding: 20px 22px;
+  border-right: 1px solid var(--ng-line); border-bottom: 1px solid var(--ng-line);
+}
+.cs-hero .meta > div:nth-child(even) { border-right: 0; }
+.cs-hero .meta > div:nth-last-child(-n+2) { border-bottom: 0; }
+.cs-hero .meta dt {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ng-ink-dim);
+}
+.cs-hero .meta dd {
+  font-family: var(--font-display); font-weight: 500; font-size: 17px;
+  letter-spacing: -0.005em; color: var(--ng-ink); margin-top: 8px;
+}
+
+/* Careers hero quick-stat panel */
+.careers-hero .quick {
+  border: 1px solid var(--ng-line-strong); border-radius: 14px; overflow: hidden;
+}
+.careers-hero .quick .row {
+  display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--ng-line);
+}
+.careers-hero .quick .row:first-child { border-top: 0; }
+.careers-hero .quick .row > div { padding: 22px 24px; border-right: 1px solid var(--ng-line); }
+.careers-hero .quick .row > div:last-child { border-right: 0; }
+.careers-hero .quick .lbl {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ng-ink-dim);
+}
+.careers-hero .quick .v {
+  font-family: var(--font-display); font-weight: 500; font-size: 40px;
+  color: var(--ng-lime); letter-spacing: -0.028em; line-height: 1; margin-top: 10px;
+}
+
+/* ─── PRACTICES — service detail rows ─────────────────────────── */
+.svc-detail {
+  display: grid; grid-template-columns: 72px minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 48px; align-items: start;
+  padding: 56px 0; border-top: 1px solid var(--ng-line);
+}
+.svc-detail:first-of-type { border-top: 0; }
+.svc-detail .num {
+  font-family: var(--font-display); font-weight: 500; font-size: 40px;
+  letter-spacing: -0.025em; color: var(--ng-line-strong); line-height: 1;
+}
+.svc-detail .meta {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ng-ink-dim);
+}
+.svc-detail h3 {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(28px, 2.6vw, 40px); line-height: 1.0; letter-spacing: -0.022em;
+  margin: 14px 0 18px;
+}
+.svc-detail > div > p { font-size: 16.5px; color: var(--ng-ink-mute); line-height: 1.6; max-width: 52ch; }
+.svc-detail .kpi { display: flex; gap: 40px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--ng-line); }
+.svc-detail .kpi .v { font-family: var(--font-display); font-weight: 500; font-size: 28px; color: var(--ng-lime); letter-spacing: -0.02em; line-height: 1; }
+.svc-detail .kpi .k { font-family: var(--font-mono); font-size: 10px; color: var(--ng-ink-dim); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 8px; }
+.svc-detail .deliverables h5 {
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--ng-ink-dim);
+  letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 18px;
+}
+.svc-detail .deliverables ul { list-style: none; display: flex; flex-direction: column; }
+.svc-detail .deliverables li {
+  font-size: 14.5px; color: var(--ng-ink); line-height: 1.5;
+  padding: 12px 0; border-top: 1px solid var(--ng-line);
+  display: grid; grid-template-columns: 22px 1fr; gap: 12px;
+}
+.svc-detail .deliverables li:first-child { border-top: 0; padding-top: 0; }
+.svc-detail .deliverables li::before { content: '→'; color: var(--ng-lime); }
+
+/* ─── Editorial section rows (Case + Job) ─────────────────────── */
+.cs-section, .job-section { padding: 80px 0; border-top: 1px solid var(--ng-line); }
+.cs-section .row, .job-section .row {
+  display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr);
+  gap: 64px; align-items: start;
+}
+.cs-section h2, .job-section h2 {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(28px, 3vw, 44px); line-height: 1.0; letter-spacing: -0.022em;
+  position: sticky; top: 96px;
+}
+.cs-section .body, .job-section .body {
+  display: flex; flex-direction: column; gap: 22px;
+  font-size: 17px; line-height: 1.65; color: var(--ng-ink-mute); max-width: 64ch;
+}
+.cs-section .body strong, .job-section .body strong { color: var(--ng-ink); font-weight: 500; }
+.cs-section .body em, .job-section .body em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--ng-ink); }
+.cs-section .body ul, .job-section .body ul { list-style: none; display: flex; flex-direction: column; }
+.cs-section .body li, .job-section .body li {
+  font-size: 16px; line-height: 1.55; color: var(--ng-ink);
+  padding: 16px 0; border-top: 1px solid var(--ng-line);
+  display: grid; grid-template-columns: 22px 1fr; gap: 14px;
+}
+.cs-section .body li:first-child, .job-section .body li:first-child { border-top: 0; padding-top: 0; }
+.cs-section .body li::before, .job-section .body li::before { content: '→'; color: var(--ng-lime); padding-top: 1px; }
+
+/* Case results grid */
+.cs-results-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+  border: 1px solid var(--ng-line-strong); border-radius: 14px; overflow: hidden;
+  margin-top: 8px;
+}
+.cs-results-grid > div {
+  padding: 28px 24px;
+  border-right: 1px solid var(--ng-line); border-bottom: 1px solid var(--ng-line);
+}
+.cs-results-grid > div:nth-child(even) { border-right: 0; }
+.cs-results-grid > div:nth-last-child(-n+2) { border-bottom: 0; }
+.cs-results-grid .v { font-family: var(--font-display); font-weight: 500; font-size: 40px; color: var(--ng-lime); letter-spacing: -0.03em; line-height: 1; }
+.cs-results-grid .k { font-family: var(--font-mono); font-size: 10.5px; color: var(--ng-ink-dim); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 14px; }
+.cs-results-grid .desc { font-size: 13.5px; color: var(--ng-ink-mute); line-height: 1.5; margin-top: 8px; }
+
+/* Case timeline rail */
+.cs-timeline {
+  margin-top: 12px; border-left: 1px solid var(--ng-line-strong); padding-left: 28px;
+  display: flex; flex-direction: column; gap: 28px;
+}
+.cs-timeline .step { position: relative; }
+.cs-timeline .step::before {
+  content: ''; position: absolute; left: -34px; top: 6px;
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--ng-bg); border: 2px solid var(--ng-lime);
+  box-shadow: 0 0 0 5px rgba(217,255,53,0.12);
+}
+.cs-timeline .phase { font-family: var(--font-mono); font-size: 10.5px; color: var(--ng-lime); letter-spacing: 0.14em; text-transform: uppercase; }
+.cs-timeline h4 { font-family: var(--font-display); font-weight: 500; font-size: 22px; letter-spacing: -0.012em; margin: 8px 0 6px; }
+.cs-timeline p { font-size: 14.5px; color: var(--ng-ink-mute); line-height: 1.55; }
+.cs-timeline .dur { font-family: var(--font-mono); font-size: 10.5px; color: var(--ng-ink-dim); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 8px; }
+
+/* Case pull-quote */
+.cs-quote {
+  padding: 100px 0; border-top: 1px solid var(--ng-line);
+  background: radial-gradient(ellipse 60% 90% at 50% 50%, rgba(217,255,53,0.05), transparent 70%);
+}
+.cs-quote blockquote {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(28px, 3.4vw, 52px); line-height: 1.16; letter-spacing: -0.022em;
+  max-width: 22ch; color: var(--ng-ink);
+}
+.cs-quote blockquote em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--ng-lime); }
+.cs-quote .who {
+  display: block; margin-top: 32px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ng-ink-mute);
+}
+
+/* ─── CAREERS ─────────────────────────────────────────────────── */
+.careers-perks, .careers-jobs, .careers-values { padding: 96px 0; border-top: 1px solid var(--ng-line); }
+.careers-perks .grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+  border: 1px solid var(--ng-line-strong); border-radius: 16px; overflow: hidden;
+}
+.careers-perks .grid .cell {
+  padding: 36px 32px;
+  border-right: 1px solid var(--ng-line); border-bottom: 1px solid var(--ng-line);
+  display: flex; flex-direction: column; gap: 12px; transition: background 0.3s;
+}
+.careers-perks .grid .cell:nth-child(even) { border-right: 0; }
+.careers-perks .grid .cell:nth-last-child(-n+2) { border-bottom: 0; }
+.careers-perks .grid .cell:hover { background: var(--ng-surface); }
+.careers-perks .cell .ix { font-family: var(--font-mono); font-size: 10.5px; color: var(--ng-ink-dim); letter-spacing: 0.14em; }
+.careers-perks .cell h4 { font-family: var(--font-display); font-weight: 500; font-size: 22px; letter-spacing: -0.012em; line-height: 1.1; }
+.careers-perks .cell p { font-size: 14.5px; color: var(--ng-ink-mute); line-height: 1.55; }
+
+/* Department filter pills */
+.careers-deps { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.careers-deps button {
+  font-family: var(--font-body); font-size: 13.5px; font-weight: 450; color: var(--ng-ink-mute);
+  padding: 9px 16px; border-radius: 999px; border: 1px solid var(--ng-line);
+  background: transparent; transition: color 0.2s, background 0.2s, border-color 0.2s;
+}
+.careers-deps button:hover { color: var(--ng-ink); border-color: var(--ng-line-strong); }
+.careers-deps button.active { color: var(--ng-bg); background: var(--ng-lime); border-color: var(--ng-lime); }
+
+/* Job rows */
+.job-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) 150px 160px 150px 40px;
+  gap: 24px; align-items: center; padding: 26px 28px;
+  border: 1px solid var(--ng-line); border-bottom: 0;
+  background: var(--ng-bg); cursor: pointer;
+  transition: padding 0.4s var(--ease), background 0.3s var(--ease);
+}
+.job-row:first-of-type { border-radius: 14px 14px 0 0; }
+.job-row:last-of-type { border-bottom: 1px solid var(--ng-line); border-radius: 0 0 14px 14px; }
+.job-row:hover { background: var(--ng-surface); padding-left: 36px; }
+.job-row .ttl { font-family: var(--font-display); font-weight: 500; font-size: 21px; letter-spacing: -0.012em; line-height: 1.1; transition: color 0.25s; }
+.job-row .teaser { font-size: 13.5px; color: var(--ng-ink-mute); line-height: 1.5; margin-top: 6px; max-width: 52ch; }
+.job-row .meta { font-family: var(--font-mono); font-size: 11px; color: var(--ng-ink-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+.job-row .meta strong { color: var(--ng-ink); font-weight: 500; }
+.job-row .comp { font-family: var(--font-mono); font-size: 11.5px; color: var(--ng-lime); letter-spacing: 0.04em; }
+.job-row .go { color: var(--ng-ink-dim); justify-self: end; transition: color 0.25s, transform 0.4s var(--ease); }
+.job-row:hover .ttl { color: var(--ng-lime); }
+.job-row:hover .go { color: var(--ng-lime); transform: translate(4px, -4px); }
+
+/* Operating principles */
+.careers-values .vals {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  border: 1px solid var(--ng-line-strong); border-radius: 16px; overflow: hidden;
+}
+.careers-values .vals .v {
+  padding: 36px 32px; border-right: 1px solid var(--ng-line);
+  display: flex; flex-direction: column; gap: 14px; transition: background 0.3s;
+}
+.careers-values .vals .v:last-child { border-right: 0; }
+.careers-values .vals .v:hover { background: var(--ng-surface); }
+.careers-values .vals .ix { font-family: var(--font-mono); font-size: 10.5px; color: var(--ng-lime); letter-spacing: 0.14em; text-transform: uppercase; }
+.careers-values .vals h4 { font-family: var(--font-display); font-weight: 500; font-size: 21px; letter-spacing: -0.012em; line-height: 1.12; }
+.careers-values .vals p { font-size: 14.5px; color: var(--ng-ink-mute); line-height: 1.55; }
+
+/* ─── JOB DETAIL ──────────────────────────────────────────────── */
+.job-back {
+  display: inline-flex; align-items: center; gap: 10px; margin: 28px 0 8px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ng-ink-mute); transition: color 0.2s;
+}
+.job-back:hover { color: var(--ng-lime); }
+.job-back .arr { display: inline-flex; transform: rotate(180deg); }
+.job-hero h1 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--ng-lime); }
+.job-hero .teaser {
+  margin-top: 28px; position: relative; z-index: 4;
+  font-size: clamp(18px, 1.4vw, 22px); line-height: 1.45; color: var(--ng-ink-mute); max-width: 60ch;
+}
+.job-meta-grid {
+  margin-top: 48px; position: relative; z-index: 4;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--ng-line-strong); border-radius: 14px; overflow: hidden;
+}
+.job-meta-grid > div { padding: 20px 22px; border-right: 1px solid var(--ng-line); }
+.job-meta-grid > div:last-child { border-right: 0; }
+.job-meta-grid dt { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ng-ink-dim); }
+.job-meta-grid dd { font-family: var(--font-display); font-weight: 500; font-size: 16px; letter-spacing: -0.005em; color: var(--ng-ink); margin-top: 8px; }
+
+.job-apply-cta {
+  padding: 120px 0; border-top: 1px solid var(--ng-line); text-align: center;
+  background: radial-gradient(ellipse 70% 100% at 50% 100%, rgba(217,255,53,0.12), transparent 65%), var(--ng-bg);
+}
+.job-apply-cta h2 {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(40px, 5vw, 80px); line-height: 0.96; letter-spacing: -0.03em;
+  max-width: 18ch; margin: 0 auto;
+}
+.job-apply-cta h2 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--ng-lime); }
+.job-apply-cta p { font-size: 18px; color: var(--ng-ink-mute); line-height: 1.5; max-width: 56ch; margin: 24px auto 0; }
+.job-apply-cta .btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
+
+/* ─── Sub-page responsive ─────────────────────────────────────── */
+@media (max-width: 1000px) {
+  .cs-hero .top, .careers-hero .top { grid-template-columns: 1fr; gap: 40px; align-items: start; }
+  .cs-section .row, .job-section .row { grid-template-columns: 1fr; gap: 28px; }
+  .cs-section h2, .job-section h2 { position: static; }
+  .svc-detail { grid-template-columns: 56px minmax(0, 1fr); }
+  .svc-detail .deliverables { grid-column: 1 / -1; }
+  .careers-values .vals { grid-template-columns: 1fr; }
+  .careers-values .vals .v { border-right: 0; border-bottom: 1px solid var(--ng-line); }
+  .careers-values .vals .v:last-child { border-bottom: 0; }
+  .job-row { grid-template-columns: minmax(0, 1fr) auto; gap: 14px 24px; }
+  .job-row .meta, .job-row .comp { grid-column: 1; }
+  .job-row .go { grid-row: 1; grid-column: 2; }
+}
+@media (max-width: 680px) {
+  .svc-hero, .cs-hero, .careers-hero, .job-hero { padding: 72px 0 56px; }
+  .careers-perks, .careers-jobs, .careers-values { padding: 64px 0; }
+  .cs-section, .job-section { padding: 56px 0; }
+  .svc-detail { grid-template-columns: 1fr; gap: 24px; padding: 40px 0; }
+  .svc-detail .kpi { gap: 28px; }
+  .cs-results-grid, .careers-perks .grid { grid-template-columns: 1fr; }
+  .cs-results-grid > div { border-right: 0; }
+  .careers-perks .grid .cell { border-right: 0; }
+  .job-meta-grid { grid-template-columns: repeat(2, 1fr); }
+  .job-meta-grid > div:nth-child(even) { border-right: 0; }
+  .job-meta-grid > div:nth-child(-n+2) { border-bottom: 1px solid var(--ng-line); }
 }

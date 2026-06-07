@@ -17,12 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="dark">
       <head>
-        {/* Handoff stand-ins (Bricolage Grotesque / Inter Tight) so the
-            preview matches the design until the real brand files are dropped
-            into /public/fonts; Ancorli / Techno Nue take precedence via
-            @font-face in globals.css when present, Arial is the alternate.
-            JetBrains Mono + Instrument Serif are functional faces the design
-            relies on (mono eyebrows, serif lime italics). */}
+        {/* The design handoff's type system — Bricolage Grotesque (display),
+            Inter Tight (body), JetBrains Mono (mono eyebrows) and Instrument
+            Serif (serif lime italics). These are the source of truth; the
+            brand Ancorli face is loaded via @font-face in globals.css and is
+            scoped to the logo/wordmark only. */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
