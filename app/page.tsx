@@ -16,6 +16,7 @@ import Cases from "@/components/Cases";
 import ExtraCases from "@/components/ExtraCases";
 import Innovation from "@/components/Innovation";
 import Manifesto from "@/components/Manifesto";
+import FinalCTA from "@/components/FinalCTA";
 
 export default function Home() {
   return (
@@ -37,6 +38,7 @@ export default function Home() {
         <ExtraCases />
         <Innovation />
         <Manifesto />
+        <FinalCTA />
       </div>
       <Footer />
     </>
