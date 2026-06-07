@@ -173,11 +173,30 @@ export function mountHeroMesh(container: HTMLElement, opts: MeshOpts = {}): () =
   const autoY = decorative ? 0.1 : 0.18;
   const ampBase = decorative ? 0.12 : 0.18;
 
+  // ── Low-power detection ──────────────────────────────────
+  // On small / touch / low-core / low-memory devices we cut the draw cost
+  // (lighter geometry, fewer particles, lower DPR cap, 30fps loop) so the
+  // mesh stays smooth and easy on the battery. Desktop (fine pointer, wide
+  // viewport, ≥6 cores) keeps the full-fidelity path — visually unchanged.
+  const mm = (q: string) => typeof window !== "undefined" && window.matchMedia && window.matchMedia(q).matches;
+  const coarse = mm("(pointer: coarse)");
+  const small = typeof window !== "undefined" && window.innerWidth < 768;
+  const nav = typeof navigator !== "undefined" ? navigator : ({} as Navigator);
+  const cores = nav.hardwareConcurrency || 8;
+  const mem = (nav as Navigator & { deviceMemory?: number }).deviceMemory || 8;
+  const lowPower = coarse || small || cores <= 4 || mem <= 4;
+
+  const surfaceDetail = lowPower ? 20 : 64;
+  const wireDetail = lowPower ? 14 : 48;
+  const partCount = lowPower ? 90 : 220;
+  const dprCap = lowPower ? 1.25 : 2;
+  const frameInterval = lowPower ? 1000 / 30 : 0; // 0 = uncapped (desktop)
+
   let W = container.clientWidth || 800;
   let H = container.clientHeight || 800;
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
-  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  const renderer = new THREE.WebGLRenderer({ antialias: !lowPower, alpha: true, powerPreference: lowPower ? "low-power" : "high-performance" });
+  renderer.setPixelRatio(Math.min(dprCap, window.devicePixelRatio || 1));
   renderer.setSize(W, H, false);
   renderer.setClearColor(0x000000, 0);
   renderer.domElement.style.width = "100%";
@@ -191,7 +210,7 @@ export function mountHeroMesh(container: HTMLElement, opts: MeshOpts = {}): () =
   camera.position.set(0, 0, camZ);
 
   // ── Mesh ─────────────────────────────────────────────────
-  const geo = new THREE.IcosahedronGeometry(1.15, 64);
+  const geo = new THREE.IcosahedronGeometry(1.15, surfaceDetail);
   const surfaceUniforms = {
     uTime: { value: 0 },
     uAmp: { value: ampBase },
@@ -213,7 +232,7 @@ export function mountHeroMesh(container: HTMLElement, opts: MeshOpts = {}): () =
   scene.add(mesh);
 
   // Wireframe shell (slightly larger, additive blend) — shares core uniforms
-  const wireGeo = new THREE.IcosahedronGeometry(1.18, 48);
+  const wireGeo = new THREE.IcosahedronGeometry(1.18, wireDetail);
   const wireUniforms = {
     uTime: surfaceUniforms.uTime,
     uAmp: surfaceUniforms.uAmp,
@@ -248,7 +267,7 @@ export function mountHeroMesh(container: HTMLElement, opts: MeshOpts = {}): () =
   scene.add(core);
 
   // ── Particle field ───────────────────────────────────────
-  const PCOUNT = 220;
+  const PCOUNT = partCount;
   const pPositions = new Float32Array(PCOUNT * 3);
   const pSizes = new Float32Array(PCOUNT);
   const pPhase = new Float32Array(PCOUNT);
@@ -368,9 +387,14 @@ export function mountHeroMesh(container: HTMLElement, opts: MeshOpts = {}): () =
   let running = true;
   const startTime = performance.now();
 
+  let lastFrame = 0;
   function loop() {
     if (!running) return;
+    raf = requestAnimationFrame(loop);
     const now = performance.now();
+    // Frame limiter on low-power devices — caps draw cost at ~30fps.
+    if (frameInterval && now - lastFrame < frameInterval) return;
+    lastFrame = now;
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
 
@@ -389,16 +413,33 @@ export function mountHeroMesh(container: HTMLElement, opts: MeshOpts = {}): () =
     surfaceUniforms.uPulse.value *= Math.pow(0.04, dt);
 
     renderer.render(scene, camera);
-    raf = requestAnimationFrame(loop);
   }
   loop();
+
+  // Pause the loop when the mesh scrolls fully out of view (battery saver).
+  let onScreen = true;
+  const io = new IntersectionObserver(
+    (entries) => {
+      onScreen = entries[0]?.isIntersecting ?? true;
+      if (onScreen && !running && !document.hidden) {
+        running = true;
+        last = performance.now();
+        loop();
+      } else if (!onScreen && running) {
+        running = false;
+        cancelAnimationFrame(raf);
+      }
+    },
+    { rootMargin: "120px" }
+  );
+  io.observe(container);
 
   // Pause when tab hidden
   function onVis() {
     if (document.hidden) {
       running = false;
       cancelAnimationFrame(raf);
-    } else if (!running) {
+    } else if (!running && onScreen) {
       running = true;
       last = performance.now();
       loop();
@@ -411,6 +452,7 @@ export function mountHeroMesh(container: HTMLElement, opts: MeshOpts = {}): () =
     running = false;
     cancelAnimationFrame(raf);
     ro.disconnect();
+    io.disconnect();
     window.removeEventListener("resize", onResize);
     window.removeEventListener("scroll", onScroll);
     window.removeEventListener("mousemove", onMove);

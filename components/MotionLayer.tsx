@@ -170,6 +170,9 @@ function setupScramble() {
 
 // ─── Magnetic hover on CTAs ──────────────────────────────────────
 function setupMagnetic() {
+  // Magnetic pull is a fine-pointer affordance only — skip on touch/coarse
+  // pointers (matches the custom-cursor gating).
+  if (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) return;
   document.querySelectorAll<HTMLElement>(".btn, .nav-actions a, .case-secondary .read").forEach((el) => {
     if (el.dataset.ngMag) return;
     el.dataset.ngMag = "1";
