@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import MotionLayer from "@/components/MotionLayer";
 
@@ -7,6 +7,14 @@ export const metadata: Metadata = {
   description:
     "Norton-Gauss builds the operating cortex for the world's most demanding enterprises — agentic AI, hyper-automation, cloud & edge and observability sequenced into compounding advantage.",
   icons: { icon: "/assets/favicon.png" },
+};
+
+// Responsive viewport — explicit so phones/tablets render at device width.
+// (Next.js injects a default, but the design must scale across 360–1280+.)
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
