@@ -2656,3 +2656,289 @@ section { position: relative; }
   .job-meta-grid > div:nth-child(even) { border-right: 0; }
   .job-meta-grid > div:nth-child(-n+2) { border-bottom: 1px solid var(--ng-line); }
 }
+
+/* ════════════════════════════════════════════════════════════════
+   RESPONSIVE LAYER — phone / tablet / desktop.
+   Added without touching the desktop (≥1025px) rendering: every rule
+   below lives inside a max-width media query, except the nav burger /
+   drawer scaffolding (hidden on desktop) and the .nav-cta sizing that
+   replaces the CTA's former inline padding. Breakpoints: 1024 (tablet),
+   900 (nav + wide two-column collapse), 768 (phone), 480 (small phone).
+   ════════════════════════════════════════════════════════════════ */
+
+/* ─── Nav: Book CTA sizing (was an inline style on the <Link>) ───── */
+.nav-cta { padding: 10px 18px; font-size: 13.5px; }
+
+/* ─── Nav: hamburger (hidden on desktop) ────────────────────────── */
+.nav-burger {
+  display: none;
+  width: 44px; height: 44px; flex-shrink: 0;
+  flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  border: 1px solid var(--ng-line); border-radius: 999px;
+  background: transparent; transition: border-color 0.2s;
+}
+.nav-burger span {
+  display: block; width: 18px; height: 1.6px; border-radius: 2px;
+  background: var(--ng-ink);
+  transition: transform 0.32s var(--ease), opacity 0.2s var(--ease);
+}
+.nav-burger.is-open span:nth-child(1) { transform: translateY(6.6px) rotate(45deg); }
+.nav-burger.is-open span:nth-child(2) { opacity: 0; }
+.nav-burger.is-open span:nth-child(3) { transform: translateY(-6.6px) rotate(-45deg); }
+
+/* ─── Nav: mobile drawer (hidden on desktop) ────────────────────── */
+.nav-drawer { display: none; }
+.nav-drawer__scrim {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  background: color-mix(in oklab, var(--ng-bg) 64%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  opacity: 0; transition: opacity 0.3s var(--ease);
+}
+.nav-drawer__panel {
+  position: absolute; top: 0; right: 0;
+  width: min(380px, 88vw); height: 100%;
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 92px 24px 28px;
+  background: var(--ng-surface);
+  border-left: 1px solid var(--ng-line-strong);
+  box-shadow: -24px 0 80px -32px rgba(0,0,0,0.7);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.42s var(--ease);
+}
+.nav-drawer__links { display: flex; flex-direction: column; gap: 2px; }
+.nav-drawer__links button {
+  font-family: var(--font-body); font-size: 18px; font-weight: 500;
+  color: var(--ng-ink); text-align: left;
+  padding: 14px 16px; border-radius: 12px; min-height: 48px;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-drawer__links button:hover,
+.nav-drawer__links button:active { color: var(--ng-bg); background: var(--ng-lime); }
+.nav-drawer__links button.active { color: var(--ng-lime); }
+.nav-drawer__links button.active:hover,
+.nav-drawer__links button.active:active { color: var(--ng-bg); }
+.nav-drawer__cta { margin-top: 16px; justify-content: center; padding: 16px 22px; font-size: 15px; }
+
+/* ════════ ≤1024px — tablet ════════ */
+@media (max-width: 1024px) {
+  :root { --gutter: 40px; }
+
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; align-items: start; min-height: 0; padding-top: 72px; padding-bottom: 88px; }
+  .hero-l { max-width: none; }
+  .hero-r { align-self: stretch; padding-bottom: 0; }
+  .hero { min-height: 0; }
+
+  .section-head { grid-template-columns: 1fr; gap: 24px; }
+  .section-head .right { max-width: 60ch; padding-bottom: 0; }
+
+  .manifesto { grid-template-columns: 1fr; gap: 48px; }
+  .manifesto .l { position: static; top: auto; }
+
+  .innovation-inner { grid-template-columns: 1fr; gap: 48px; }
+  .roadmap-grid { grid-template-columns: 1fr; gap: 40px; }
+
+  .featured-practice { grid-template-columns: 1fr; }
+  .featured-practice .l { border-right: 0; border-bottom: 1px solid var(--ng-line); }
+  .featured-practice .r, .featured-practice { min-height: 0; }
+  .featured-practice .r { min-height: 320px; }
+
+  .case-feature { grid-template-columns: 1fr; min-height: 0; }
+  .case-feature .l { border-right: 0; border-bottom: 1px solid var(--ng-line); }
+
+  .fw-detail { grid-template-columns: 1fr; min-height: 0; }
+  .fw-detail > div { border-right: 0; border-bottom: 1px solid var(--ng-line); }
+  .fw-detail > div:last-child { border-bottom: 0; }
+
+  .pdetail-card { grid-template-columns: 1fr; min-height: 0; }
+  .pdetail-card > div { border-right: 0; border-bottom: 1px solid var(--ng-line); }
+  .pdetail-card > div:last-child { border-bottom: 0; }
+
+  .ind-band { grid-template-columns: repeat(4, 1fr); }
+  .impact-detailed { grid-template-columns: repeat(2, 1fr); }
+  .impact-detailed > div { border-right: 1px solid var(--ng-line); border-bottom: 1px solid var(--ng-line); }
+  .impact-detailed > div:nth-child(2n) { border-right: 0; }
+  .impact-detailed > div:nth-last-child(-n+2) { border-bottom: 0; }
+
+  .cases-extra-grid { grid-template-columns: repeat(2, 1fr); }
+  .innovation-spline { min-height: 0; }
+}
+
+/* ════════ ≤900px — nav collapses + wide two-columns stack ════════ */
+@media (max-width: 900px) {
+  /* Nav → hamburger + drawer */
+  .nav-inner { gap: 16px; }
+  .nav-links { display: none; }
+  .nav-burger { display: flex; }
+  .nav-drawer { display: block; position: fixed; inset: 0; z-index: 55; visibility: hidden; }
+  .nav-drawer.is-open { visibility: visible; }
+  .nav-drawer.is-open .nav-drawer__scrim { opacity: 1; }
+  .nav-drawer.is-open .nav-drawer__panel { transform: translateX(0); }
+
+  /* Thesis old/new columns stack */
+  .thesis-grid { grid-template-columns: 1fr; margin-top: 48px; }
+  .thesis-col { border-right: 0; border-bottom: 1px solid var(--ng-line); padding: 36px 24px; }
+  .thesis-col:last-child { border-bottom: 0; }
+  .thesis-col .arrow-sep { display: none; }
+
+  /* Footer */
+  .footer .top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .footer .brand { grid-column: 1 / -1; }
+
+  /* Framework + practices-detail steppers → horizontal scroll */
+  .fw-track, .pdetail-tabs { display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
+  .fw-cell, .pdetail-tab { flex: 0 0 auto; min-width: 156px; scroll-snap-align: start; }
+  .fw-cell .arrow { display: none; }
+}
+
+/* ════════ ≤768px — phone ════════ */
+@media (max-width: 768px) {
+  :root { --gutter: 24px; --gutter-sm: 20px; }
+
+  /* Tighter vertical rhythm */
+  .section-pad { padding: 80px 0; }
+  .section-pad-sm { padding: 64px 0; }
+  .final-cta { padding: 96px 0 80px; }
+  .innovation-section { padding: 80px 0; }
+  .manifesto-banner { padding: 72px 0; }
+
+  /* Fluid display type — lower clamp minimums so headlines never clip */
+  .hero-h1 { font-size: clamp(38px, 8.6vw, 144px); }
+  .display-hero { font-size: clamp(48px, 12vw, 232px); }
+  .display-3xl { font-size: clamp(40px, 9.5vw, 144px); }
+  .manifesto-banner h2 { font-size: clamp(40px, 11vw, 144px); }
+  .final-cta h2 { font-size: clamp(40px, 10vw, 112px); }
+  .innovation-h2 { font-size: clamp(40px, 10vw, 112px); }
+
+  /* Section tag / head */
+  .section-tag { flex-wrap: wrap; gap: 8px 24px; }
+
+  /* Topbar — keep just the brand tag + clock */
+  .topbar > div:first-child span:not(.live) { display: none; }
+  .topbar > div:last-child span:not(:first-child) { display: none; }
+
+  /* Hero internals */
+  .hero-livestrip { display: none; }
+  .hero::after { width: 460px; height: 460px; right: -28%; }
+  .hero-counters { grid-template-columns: repeat(2, 1fr); }
+  .hero-counters > div:nth-child(2n) { border-right: 0; }
+  .hero-counters > div:nth-child(-n+2) { border-bottom: 1px solid var(--ng-line); }
+  .hero-marquee-track { padding: 14px 24px; gap: 40px; }
+
+  /* Featured practice */
+  .featured-practice .l { padding: 32px 24px; }
+  .featured-practice .l ul { grid-template-columns: 1fr; }
+  .featured-practice .l .kpi { flex-wrap: wrap; gap: 24px; }
+
+  /* Practice rows → stacked cards */
+  .prac-row { grid-template-columns: 32px 1fr auto; gap: 4px 14px; padding: 22px 18px; align-items: start; }
+  .prac-row:hover { padding-left: 18px; padding-right: 18px; }
+  .prac-row .ix { grid-column: 1; grid-row: 1; }
+  .prac-row > div:not(.meta) { grid-column: 2; grid-row: 1; }
+  .prac-row .go { grid-column: 3; grid-row: 1; align-self: center; }
+  .prac-row .meta { grid-column: 2 / -1; grid-row: 2; margin-top: 10px; }
+
+  /* Case cards */
+  .case-secondary-grid { grid-template-columns: 1fr; }
+  .case-secondary { padding: 32px 24px; }
+
+  /* Industries */
+  .ind-band { grid-template-columns: repeat(3, 1fr); }
+  .ind-cell { min-height: 180px; }
+
+  /* Impact strip */
+  .impact-strip { grid-template-columns: repeat(2, 1fr); }
+  .impact-strip > div { padding: 36px 24px; border-bottom: 1px solid var(--ng-line); }
+  .impact-strip > div:nth-child(2n) { border-right: 0; }
+  .impact-strip > div:nth-last-child(-n+2) { border-bottom: 0; }
+
+  /* Compounding */
+  .compounding-curve { padding: 28px 24px 36px; }
+  .compounding-curve svg { height: 240px; }
+  .compounding-stops { grid-template-columns: 1fr; }
+  .compounding-stop { border-right: 0; border-bottom: 1px solid var(--ng-line); padding: 24px 0 24px; }
+  .compounding-stop:last-child { border-bottom: 0; }
+  .compounding-stop .kpi .v { font-size: 44px; }
+  .compounding-loops { grid-template-columns: repeat(2, 1fr); }
+  .compounding-loop:nth-child(2n) { border-right: 0; }
+
+  /* World map */
+  .worldmap-wrap { padding: 24px 24px 32px; }
+  .worldmap-meta { position: static; flex-direction: row; flex-wrap: wrap; gap: 6px 16px; margin-bottom: 16px; }
+  .industry-strip { grid-template-columns: repeat(3, 1fr); }
+
+  /* Manifesto */
+  .manifesto-stats .v { font-size: 30px; }
+
+  /* Sub-page heroes with side panel: meta panels already stack at 1000px */
+  .cs-section .body, .job-section .body { font-size: 16px; }
+}
+
+/* ════════ ≤480px — small phone ════════ */
+@media (max-width: 480px) {
+  :root { --gutter: 18px; }
+
+  /* Headlines — smallest tier */
+  .hero-h1 { font-size: clamp(30px, 9.2vw, 144px); }
+  .display-hero { font-size: clamp(40px, 13vw, 232px); }
+  .display-2xl { font-size: clamp(32px, 9vw, 76px); }
+  .manifesto-banner h2 { font-size: clamp(34px, 11.5vw, 144px); }
+  .final-cta h2 { font-size: clamp(34px, 11vw, 112px); }
+  .impact-strip .v { font-size: clamp(40px, 13vw, 104px); }
+
+  /* Industries / strips → 2-up */
+  .ind-band { grid-template-columns: repeat(2, 1fr); }
+  .industry-strip { grid-template-columns: repeat(2, 1fr); }
+  .cases-extra-grid { grid-template-columns: 1fr; }
+
+  /* Loops + manifesto stats → single column */
+  .compounding-loops { grid-template-columns: 1fr; }
+  .compounding-loop { border-right: 0; border-bottom: 1px solid var(--ng-line); }
+  .compounding-loop:last-child { border-bottom: 0; }
+  .manifesto-stats { grid-template-columns: 1fr; }
+
+  /* Footer single column */
+  .footer .top { grid-template-columns: 1fr; gap: 32px; }
+  .footer .bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+  /* CTA button rows fill width for easy tapping */
+  .hero-ctas .btn, .final-cta .ctas .btn, .job-apply-cta .btns .btn { flex: 1 1 auto; justify-content: center; }
+}
+
+/* ─── Touch / coarse-pointer affordances ────────────────────────── */
+@media (hover: none) {
+  .btn.primary:active { background: var(--ng-lime-bright); }
+  .btn.ghost:active { border-color: var(--ng-lime); color: var(--ng-lime); }
+  .btn.solid-dark:active { background: var(--ng-surface-2); border-color: var(--ng-lime); }
+  .prac-row:active, .job-row:active { background: var(--ng-surface); }
+  .case-secondary:active { border-color: var(--ng-lime); }
+  .fw-cell:active, .pdetail-tab:active { background: var(--ng-surface); }
+  .book-slot:active, .book-practice:active, .book-chip:active { border-color: var(--ng-lime); }
+  .careers-deps button:active { color: var(--ng-bg); background: var(--ng-lime); border-color: var(--ng-lime); }
+}
+/* Comfortable touch targets for inline pill controls */
+@media (pointer: coarse) {
+  .careers-deps button, .book-chip { min-height: 44px; }
+}
+
+/* ─── Nav: prevent wordmark / CTA label wrap; tighten at small widths ── */
+.nav-cta-label { white-space: nowrap; }
+.nav-logo .wm { white-space: nowrap; }
+@media (max-width: 480px) {
+  .nav-inner { gap: 10px; }
+  .nav-logo { gap: 8px; }
+  .nav-logo img { height: 24px; }
+  .nav-logo .wm { font-size: 16px; }
+  .nav-cta { padding: 9px 14px; font-size: 12.5px; }
+}
+
+/* ─── Sub-page decorative mesh banner — shorten on mobile ─────────
+   .subpage-mesh-host has no desktop CSS (it sizes to the canvas' 800px
+   fallback). On phones that pushes hero copy far down, so cap its height
+   here — desktop (≥769px) is untouched. */
+@media (max-width: 768px) {
+  .subpage-mesh-host { height: 300px; }
+}
+@media (max-width: 480px) {
+  .subpage-mesh-host { height: 240px; }
+}
