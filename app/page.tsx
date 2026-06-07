@@ -9,6 +9,7 @@ import Practices from "@/components/Practices";
 import Framework from "@/components/Framework";
 import PracticesDetail from "@/components/PracticesDetail";
 import Compounding from "@/components/Compounding";
+import Roadmaps from "@/components/Roadmaps";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
         <Framework />
         <PracticesDetail />
         <Compounding />
+        <Roadmaps />
       </div>
       <Footer />
     </>
