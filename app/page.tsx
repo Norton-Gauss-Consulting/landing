@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import ManifestoBanner from "@/components/ManifestoBanner";
+import Thesis from "@/components/Thesis";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <div className="page-enter">
         <Hero />
         <ManifestoBanner />
+        <Thesis />
       </div>
       <Footer />
     </>
