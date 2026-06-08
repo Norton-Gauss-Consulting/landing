@@ -19,7 +19,8 @@ export default function PracticesPage() {
             <h1 style={{ marginTop: 24 }}>What we <em className="serif-em">do.</em></h1>
             <p className="lede big">
               Five practices, one operating discipline. Each ships independently, and they compose into the kind of
-              transformation where every later phase is cheaper than the one before it.
+              transformation where every later phase is cheaper than the one before it. Performance figures shown are
+              representative ranges from completed client engagements; outcomes vary with scope and starting point.
             </p>
           </div>
         </section>

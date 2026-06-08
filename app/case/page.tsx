@@ -57,7 +57,8 @@ export default function CaseStudyPage() {
               <div className="body">
                 <p>
                   Twelve months post platform go-live, with the operating model embedded in the bank&apos;s treasury team
-                  and the agent fleet trained on a full close cycle.
+                  and the agent fleet trained on a full close cycle. All figures were measured during post-go-live operating
+                  reviews and reflect this engagement, not a portfolio average.
                 </p>
                 <div className="cs-results-grid">
                   {cs.results.map((r, i) => (

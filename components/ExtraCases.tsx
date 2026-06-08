@@ -6,7 +6,7 @@ export default function ExtraCases() {
   if (!additionalCases.length) return null;
   return (
     <div className="container" data-anim="extra-cases" style={{ marginTop: 32 }}>
-      <h4 className="mono" style={{ marginBottom: 18, color: "var(--ng-ink-dim)" }}>More from the 2025 portfolio</h4>
+      <h4 className="mono" style={{ marginBottom: 18, color: "var(--ng-ink-dim)" }}>More from the 2024–2026 portfolio · representative engagements</h4>
       <div className="cases-extra-grid" data-anim-child-list>
         {additionalCases.map((c) => (
           <Link key={c.id} className="case-secondary" data-anim-child href="/case">

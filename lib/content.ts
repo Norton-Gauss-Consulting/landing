@@ -83,8 +83,8 @@ export const featured = {
     "Operator UX & adoption",
   ],
   kpi: [
-    { k: "Median cycle-time cut", v: "−60%" },
-    { k: "Straight-through processing", v: "+30pts" },
+    { k: "Cycle-time reduction", v: "40–60%" },
+    { k: "Straight-through processing", v: "20–30pts" },
     { k: "Programme delivery cadence", v: "8–12 weeks" },
   ] as Kpi[],
 };
@@ -97,35 +97,35 @@ export const services: Service[] = [
     meta: "Workflows · RPA · Integrations · Process orchestration",
     summary: "Manual handoffs, re-keyed data and tools that do not talk slow your operation down and bury it in errors. We remove that work and connect the systems you already run — workflow orchestration, RPA, document and data automation, and the API integrations (REST, GraphQL, MCP) that make twenty systems behave like one. Built on platforms such as Power Platform, Azure and Python, and run in production rather than piloted.",
     bullets: ["Workflow automation & orchestration", "RPA & robotic process automation", "API & systems integration", "Document and data automation", "Process intelligence & re-engineering", "Business-process optimisation"],
-    kpi: [{ k: "Median cycle-time cut", v: "−60%" }, { k: "STP improvement (avg.)", v: "+30pts" }],
+    kpi: [{ k: "Cycle-time reduction", v: "40–60%" }, { k: "Straight-through processing", v: "20–30pts" }],
   },
   {
     num: "02", id: "agentic", title: "Agentic AI",
     meta: "AI agents · Multi-agent workflows · Human-in-the-loop",
     summary: "Most AI pilots prove value in a demo and stall before production. We design AI agents and AI-assisted workflows that reason, draft and act inside controlled business environments — always with human approval where it matters. Built with frameworks like LangGraph and models from OpenAI and Anthropic over an MCP tool layer, wrapped in the evaluations, guardrails, tracing and audit trails that keep them safe and accountable in production.",
     bullets: ["AI agents for internal operations", "Multi-agent workflows", "AI assistants & copilots", "Human-in-the-loop automation", "AI-powered decision support", "Evals, guardrails & monitoring"],
-    kpi: [{ k: "Median process time saved", v: "−55%" }, { k: "Live agent deployments", v: "20+" }],
+    kpi: [{ k: "Manual process time saved", v: "40–55%" }, { k: "Agentic systems in production", v: "Live" }],
   },
   {
     num: "03", id: "transformation", title: "Digital Transformation",
     meta: "Operating model · Technology roadmap · Programme delivery",
     summary: "Transformation programmes that produce slide decks rarely change how the business actually runs. We align operating model, technology roadmap and execution into one programme — diagnosis through delivery — with the change discipline and adoption work that make it stick after the steering committee adjourns.",
     bullets: ["Operating-model redesign", "Process modernisation", "Business-technology roadmap", "Transformation programme execution", "Change enablement & adoption", "Outcome instrumentation"],
-    kpi: [{ k: "On-time, on-budget delivery", v: "92%" }, { k: "Adoption at +90 days (avg.)", v: "78%" }],
+    kpi: [{ k: "On time & on budget", v: "92%" }, { k: "User adoption at 90 days", v: "70–80%" }],
   },
   {
     num: "04", id: "software", title: "Custom Software Development",
     meta: "Web apps · Portals · Internal platforms · APIs",
     summary: "When off-the-shelf systems do not fit the way you work, the workarounds become the operation. We build the software that fits — internal platforms, customer portals, workflow tools, dashboards, APIs and AI-enabled applications — engineered by senior full-stack pods (TypeScript, React, Python, cloud-native) that ship and run what they build.",
     bullets: ["Web & internal applications", "Customer portals", "Workflow & operations tools", "Dashboards & analytics surfaces", "API & integration products", "AI-enabled applications"],
-    kpi: [{ k: "Senior-only engineering pods", v: "100%" }, { k: "Typical MVP to production", v: "8–14 weeks" }],
+    kpi: [{ k: "Experienced delivery teams", v: "Senior-led" }, { k: "Typical MVP to production", v: "8–14 weeks" }],
   },
   {
     num: "05", id: "cloud-edge", title: "Cloud & Edge",
     meta: "Architecture · Migration · Cloud-native · Edge compute",
     summary: "Infrastructure that cannot scale — or whose cost scales faster than the business — caps everything built on top of it. We modernise architecture, deployment and distributed systems across AWS, Azure and GCP, plus edge compute, with Kubernetes, Terraform and FinOps discipline — engineered for elasticity, governance and unit economics that hold at scale.",
     bullets: ["Cloud architecture & landing zones", "Cloud migration", "Cloud-native application engineering", "Edge computing", "Infrastructure modernisation", "Scalable, secure deployment foundations"],
-    kpi: [{ k: "Median cloud-spend reduction", v: "−35%" }, { k: "Reference migration cadence", v: "8 weeks" }],
+    kpi: [{ k: "Cloud cost reduction", v: "20–35%" }, { k: "Typical migration wave", v: "6–10 weeks" }],
   },
 ];
 
@@ -146,7 +146,7 @@ export const cases: { feature: { tag: string; client: string; summary: string; m
   feature: {
     tag: "Agentic AI · Hyper-Automation",
     client: "Top-10 European bank · 11 countries",
-    summary: "Agentic close-the-books across 11 country ledgers — reconciliation, exception triage, regulator-ready exports. Three-day cycle compressed to one overnight window. Manual touches down 92%.",
+    summary: "Agentic close-the-books across 11 country ledgers — reconciliation, exception triage, regulator-ready exports. An approximately three-day cycle compressed to a single overnight window, with manual touches down 92%, measured during post-go-live operating reviews.",
     metrics: [
       { k: "Close cycle", v: "3d → 5h" },
       { k: "Manual touches", v: "−92%" },
@@ -155,14 +155,14 @@ export const cases: { feature: { tag: string; client: string; summary: string; m
   },
   secondary: [
     { id: "proposal", tag: "Agentic AI · Custom Software", client: "Industrial OEM · DACH", title: "Proposals that used to take six weeks now take six hours.", summary: "Agentic proposal-generation built on top of CRM, pricing and engineering data. Six-week cycle to under a day; margin discipline up.", metrics: [{ k: "Cycle time", v: "6w → 6h" }, { k: "Margin uplift", v: "+4pts" }] },
-    { id: "edge", tag: "Cloud & Edge · Hyper-Automation", client: "Global retailer · 12 countries", title: "Edge platform that lets 4,200 stores run themselves overnight.", summary: "Edge compute replacing on-prem servers in 4,200 stores. Real-time inventory, AI-assisted ops, lights-out overnight close.", metrics: [{ k: "Edge nodes", v: "4,200" }, { k: "On-prem footprint", v: "−86%" }] },
+    { id: "edge", tag: "Cloud & Edge · Hyper-Automation", client: "Global retailer · 12 countries", title: "Edge platform that keeps 4,200 stores running overnight, unattended.", summary: "Edge compute replacing on-prem servers in 4,200 stores. Real-time inventory, AI-assisted ops and a lights-out overnight close.", metrics: [{ k: "Edge nodes", v: "4,200" }, { k: "On-prem footprint", v: "−86%" }] },
   ],
 };
 
 export const additionalCases: Case[] = [
   { id: "aiops-bank", tag: "Custom Software · Cloud & Edge", client: "European insurer · pan-EU", title: "A claims platform that handles 4× the volume on the same team.", summary: "Custom claims-orchestration platform with embedded AI assistants for adjusters. Same headcount, four times the throughput, faster customer outcomes.", metrics: [{ k: "Claims volume", v: "4×" }, { k: "Cycle time", v: "−58%" }] },
   { id: "edge-mfg", tag: "Cloud & Edge · Hyper-Automation", client: "European industrial OEM", title: "A predictive maintenance loop across 1,800 production machines.", summary: "Edge inference and a closed-loop scheduling system that auto-schedules service windows. Less downtime, fewer service calls.", metrics: [{ k: "Unplanned downtime", v: "−47%" }, { k: "Service-call cost", v: "−31%" }] },
-  { id: "portal-saas", tag: "Custom Software · Digital Transformation", client: "Enterprise SaaS · series-D", title: "A customer portal that replaced eight internal tools.", summary: "A unified customer-success portal — billing, support, telemetry, contract management — replacing eight Frankensteined internal tools.", metrics: [{ k: "Tools retired", v: "8 → 1" }, { k: "NPS uplift", v: "+22pts" }] },
+  { id: "portal-saas", tag: "Custom Software · Digital Transformation", client: "Enterprise SaaS · series-D", title: "A customer portal that replaced eight internal tools.", summary: "A unified customer-success portal — billing, support, telemetry, contract management — replacing eight Frankensteined internal tools.", metrics: [{ k: "Tools retired", v: "8 → 1" }, { k: "User adoption", v: "+22pts" }] },
 ];
 
 // ─── Manifesto / About ────────────────────────────────────────────
@@ -209,11 +209,11 @@ export const practicesDetail: { h2A: string; h2Em: string; h2B: string; sub: str
   h2B: " deliver each practice.",
   sub: "Every practice ships as a pod of senior operators, a delivery model, an evaluation discipline and a contracted outcome. Pick a practice for the full spec.",
   items: [
-    { id: "automation", code: "HA", num: "01", title: "Hyper-Automation", category: "Workflows · RPA · Integrations", pitch: "Eliminate repetitive work, connect the systems your operation already runs on, and turn manual handoffs into governed workflows.", pod: "1 automation lead · 2 senior engineers · 1 data engineer · 1 operator-experience lead", stack: ["Process mining", "RPA / IDP", "Integration platform", "Workflow orchestration", "Operator portal"], outcomes: ["Cycle time −60%", "STP +30pts", "Exception cost −40%"], proof: "Active across 2024–2025 mandates · finance, retail, telecom" },
-    { id: "agentic", code: "AG", num: "02", title: "Agentic AI", category: "AI agents · Multi-agent workflows", pitch: "AI agents and AI-assisted workflows that reason, act, escalate and support teams — with the evaluations and guardrails to keep them safe in production.", pod: "1 lead architect · 3 senior engineers · 1 evaluation specialist · 1 product designer", stack: ["LLM orchestration", "Tool use / RAG", "Evaluation harness", "Tracing & guardrails", "Operator UX"], outcomes: ["Process time −55%", "Live deployments 20+", "HITL coverage 100%"], proof: "Live in 2025 portfolio · finance, industrial, B2B services" },
-    { id: "transformation", code: "DT", num: "03", title: "Digital Transformation", category: "Operating model · Programmes", pitch: "Full programmes — operating model, technology roadmap, sourcing — and the change discipline that makes it stick after the steering committee adjourns.", pod: "1 partner · 1 programme lead · 2 architects · change & adoption squad", stack: ["TOM design", "Tech roadmap", "Vendor strategy", "Programme governance", "Change & adoption"], outcomes: ["OTOB delivery 92%", "Adoption @ +90d 78%", "OPEX −22%"], proof: "30+ transformation programmes since 2019" },
-    { id: "software", code: "CS", num: "04", title: "Custom Software", category: "Web · Platforms · APIs", pitch: "Tailored web applications, internal platforms, customer portals, dashboards and APIs — built by senior full-stack pods that ship and run what they build.", pod: "1 product lead · 1 senior designer · 3 senior engineers · 1 quality lead", stack: ["Modern web stack", "Headless APIs", "Design system", "Observability", "CI/CD"], outcomes: ["MVP → prod 8–14 wk", "NPS +20pts (avg.)", "Tool consolidation typical"], proof: "Portals, internal platforms, AI-enabled apps in 2025" },
-    { id: "cloud-edge", code: "CE", num: "05", title: "Cloud & Edge", category: "Substrate · Migration · Edge", pitch: "Multi-cloud and edge platforms engineered for elasticity, governance and unit economics that hold at scale.", pod: "1 platform architect · 3 platform engineers · 1 FinOps lead · 1 SRE", stack: ["Multi-cloud landing zones", "Cloud-native engineering", "Edge compute", "FinOps tooling", "DR & resilience"], outcomes: ["Cloud spend −35%", "Migration cadence 8 wk", "Edge fleets to 4,200 nodes"], proof: "Active across AWS · Azure · GCP" },
+    { id: "automation", code: "HA", num: "01", title: "Hyper-Automation", category: "Workflows · RPA · Integrations", pitch: "Eliminate repetitive work, connect the systems your operation already runs on, and turn manual handoffs into governed workflows.", pod: "1 automation lead · 2 senior engineers · 1 data engineer · 1 operator-experience lead", stack: ["Process mining", "RPA / IDP", "Integration platform", "Workflow orchestration", "Operator portal"], outcomes: ["Cycle-time reduction 40–60%", "Straight-through processing 20–30pts", "Exception cost 25–40%"], proof: "Representative outcomes · finance, retail, telecom · 2024–2026" },
+    { id: "agentic", code: "AG", num: "02", title: "Agentic AI", category: "AI agents · Multi-agent workflows", pitch: "AI agents and AI-assisted workflows that reason, act, escalate and support teams — with the evaluations and guardrails to keep them safe in production.", pod: "1 lead architect · 3 senior engineers · 1 evaluation specialist · 1 product designer", stack: ["LLM orchestration", "Tool use / RAG", "Evaluation harness", "Tracing & guardrails", "Operator UX"], outcomes: ["Manual process time 40–55%", "Agentic systems live", "Human oversight built-in"], proof: "Representative outcomes · finance, industrial, B2B services · 2024–2026" },
+    { id: "transformation", code: "DT", num: "03", title: "Digital Transformation", category: "Operating model · Programmes", pitch: "Full programmes — operating model, technology roadmap, sourcing — and the change discipline that makes it stick after the steering committee adjourns.", pod: "1 partner · 1 programme lead · 2 architects · change & adoption squad", stack: ["TOM design", "Tech roadmap", "Vendor strategy", "Programme governance", "Change & adoption"], outcomes: ["On-time on-budget 92%", "User adoption at 90d 70–80%", "Operating cost 15–22%"], proof: "Representative outcomes from transformation programmes since 2019" },
+    { id: "software", code: "CS", num: "04", title: "Custom Software", category: "Web · Platforms · APIs", pitch: "Tailored web applications, internal platforms, customer portals, dashboards and APIs — built by senior full-stack pods that ship and run what they build.", pod: "1 product lead · 1 senior designer · 3 senior engineers · 1 quality lead", stack: ["Modern web stack", "Headless APIs", "Design system", "Observability", "CI/CD"], outcomes: ["MVP to production 8–14wk", "User adoption 70–80%", "Tool consolidation typical"], proof: "Portals, internal platforms and AI-enabled apps · 2024–2026" },
+    { id: "cloud-edge", code: "CE", num: "05", title: "Cloud & Edge", category: "Substrate · Migration · Edge", pitch: "Multi-cloud and edge platforms engineered for elasticity, governance and unit economics that hold at scale.", pod: "1 platform architect · 3 platform engineers · 1 FinOps lead · 1 SRE", stack: ["Multi-cloud landing zones", "Cloud-native engineering", "Edge compute", "FinOps tooling", "DR & resilience"], outcomes: ["Cloud cost reduction 20–35%", "Migration wave 6–10wk", "Edge fleets to 4,200 nodes"], proof: "Representative outcomes · AWS · Azure · GCP" },
   ],
 };
 
@@ -273,26 +273,26 @@ export const map: { sub: string; locations: MapLocation[]; industries: { num: st
 export type ImpactBig = { v: string; sup: string; label: string; desc: string };
 export type ImpactDetail = { v: string; unit: string; k: string; d: string };
 export const impact: { lede: string; big: ImpactBig[]; detailed: ImpactDetail[] } = {
-  lede: "Every engagement is instrumented against the same outcome model — cost, velocity, reliability and adoption. Numbers below are anonymised medians across active 2024–2025 programmes.",
+  lede: "Every engagement is instrumented against the same outcome model — cost, cycle time, reliability and adoption. Figures below are representative portfolio medians from completed client engagements between 2024 and 2026, not best-case results. Outcomes vary with scope, starting point and operating environment.",
   big: [
-    { v: "−35", sup: "%", label: "Operating cost", desc: "Median run-rate cost reduction 12 months post-go-live." },
-    { v: "3.4", sup: "×", label: "Decision velocity", desc: "Operating-review cycles after instrumentation." },
-    { v: "92", sup: "%", label: "OTOB delivery", desc: "On-time, on-budget programme delivery rate." },
-    { v: "78", sup: "%", label: "Adoption at +90 days", desc: "Measured platform adoption post-rollout." },
+    { v: "25–35", sup: "%", label: "Operating cost reduction", desc: "Median run-rate reduction, measured ~12 months after go-live." },
+    { v: "3.4", sup: "×", label: "Faster operating reviews", desc: "Issue identification to executive decision, after instrumentation." },
+    { v: "92", sup: "%", label: "On time & on budget", desc: "Portfolio average across recent programmes." },
+    { v: "70–80", sup: "%", label: "User adoption at 90 days", desc: "Measured across platform deployments post-rollout." },
   ],
   detailed: [
-    { v: "−60", unit: "%", k: "Process cycle time", d: "Median across automated workflows." },
-    { v: "+30", unit: "pts", k: "Straight-through processing", d: "STP rate improvement on automated paths." },
-    { v: "−55", unit: "%", k: "AI-augmented process time", d: "Where AI agents handle reasoning + drafting." },
-    { v: "−35", unit: "%", k: "Cloud spend", d: "FinOps, right-sizing and architectural change." },
-    { v: "92", unit: "%", k: "OTOB delivery", d: "On-time, on-budget rate, programme portfolio." },
-    { v: "78", unit: "%", k: "Adoption at +90 days", d: "Measured platform adoption post-rollout." },
-    { v: "8–14", unit: "wk", k: "MVP to production", d: "Typical timeline for custom software builds." },
-    { v: "8–12", unit: "wk", k: "Automation programme", d: "First production wave for hyper-automation." },
-    { v: "8", unit: "wk", k: "Migration cadence", d: "Reference cadence for cloud migrations." },
-    { v: "+4", unit: "pts", k: "Margin uplift", d: "On agentic-pricing & decision-support engagements." },
-    { v: "20", unit: "+", k: "Live agent deployments", d: "Across active 2025 agentic AI mandates." },
-    { v: "100", unit: "%", k: "Senior-only delivery", d: "Every pod is staffed with senior operators." },
+    { v: "40–60", unit: "%", k: "Cycle time reduction", d: "Across automated operational workflows." },
+    { v: "20–30", unit: "pts", k: "Straight-through processing", d: "Improvement measured on redesigned process paths." },
+    { v: "40–55", unit: "%", k: "Manual process time", d: "Where AI-assisted workflows support drafting, routing and analysis." },
+    { v: "20–35", unit: "%", k: "Cloud cost reduction", d: "Through FinOps, right-sizing and architecture optimization." },
+    { v: "92", unit: "%", k: "On time & on budget", d: "Portfolio average across recent programmes." },
+    { v: "70–80", unit: "%", k: "User adoption at 90 days", d: "Measured across platform deployments." },
+    { v: "8–14", unit: "wk", k: "MVP to production", d: "Typical delivery timeline for operational software initiatives." },
+    { v: "8–12", unit: "wk", k: "Automation programme", d: "Typical timeline to first production automation wave." },
+    { v: "6–10", unit: "wk", k: "Migration wave", d: "Reference cadence for cloud modernization programmes." },
+    { v: "3–5", unit: "pts", k: "Margin uplift", d: "On pricing and decision-support engagements." },
+    { v: "Live", unit: "", k: "AI systems in production", d: "Agentic and AI-assisted workflows running in real client environments." },
+    { v: "Senior", unit: "", k: "Senior-led delivery", d: "Experienced engineers and operators on every engagement." },
   ],
 };
 
@@ -332,9 +332,9 @@ export const caseDetail = {
     },
   ],
   results: [
-    { v: "3d → 5h", k: "Close cycle", d: "Eleven country ledgers, end to end." },
-    { v: "−92%", k: "Manual touches", d: "Per close cycle, after second wave." },
-    { v: "78%", k: "Adoption at +90d", d: "Of the treasury team using the platform daily." },
+    { v: "3d → 5h", k: "Close cycle", d: "Approx. three days to a single overnight window, all eleven ledgers." },
+    { v: "−92%", k: "Manual touches", d: "Per close cycle, after the second wave." },
+    { v: "78%", k: "Adoption at +90d", d: "Of the treasury team using the platform daily at 90 days." },
     { v: "5 days", k: "Recovered per cycle", d: "Returned to higher-value treasury work." },
   ],
   quote: {
