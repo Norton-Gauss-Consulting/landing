@@ -15,7 +15,7 @@ const BOOK = {
   h1A: "Forty-five minutes ",
   h1Em: "with a partner.",
   h1B: "",
-  sub: "You bring an operating constraint. We bring a perspective and the engineering judgment behind it. You leave with a sharper question and a concrete next move — not a follow-up brochure.",
+  sub: "You bring an operating constraint. We bring a perspective and the engineering judgment behind it. You leave with a sharper question and a concrete next move — not a follow-up brochure. Confidential by default; NDA available on request.",
   practices: [
     { id: "hyper", label: "Hyper-Automation", code: "P01" },
     { id: "agent", label: "Agentic AI", code: "P02" },
@@ -147,7 +147,7 @@ export default function BookCallPage() {
             <div><div className="k">Format</div><div className="v">45-minute working session</div></div>
             <div><div className="k">Cost</div><div className="v">Complimentary</div></div>
             <div><div className="k">Follow-up</div><div className="v">Written brief · 24h</div></div>
-            <div><div className="k">Confidentiality</div><div className="v">Mutual NDA on request</div></div>
+            <div><div className="k">Confidentiality</div><div className="v">Confidential by default</div></div>
           </div>
         </div>
       </section>
@@ -263,14 +263,6 @@ function BookStep1({ form, set, onNext, canNext }: { form: Form; set: <K extends
             <input type="text" value={form.role} onChange={(e) => set("role", e.target.value)} placeholder="Chief Operating Officer" autoComplete="organization-title" />
           </Field>
         </div>
-
-        <Field label="Company size" hint="Headcount, approximate.">
-          <div className="book-chips">
-            {BOOK.sizes.map((s) => (
-              <button key={s} type="button" className={`book-chip ${form.size === s ? "is-on" : ""}`} onClick={() => set("size", s)}>{s}</button>
-            ))}
-          </div>
-        </Field>
       </div>
 
       <BookActions primary={{ label: "Continue · Operating context", onClick: onNext, disabled: !canNext }} meta={canNext ? null : "Name, email and company are required."} />
@@ -318,6 +310,14 @@ function BookStep2({ form, set, onBack, onNext, canNext }: { form: Form; set: <K
             rows={5} maxLength={600} value={form.challenge} onChange={(e) => set("challenge", e.target.value)}
             placeholder="e.g. We have an automation backlog of ~40 finance workflows. Our internal team has shipped six in 18 months. We need to know whether to staff a senior pod, buy a platform, or do both."
           />
+        </Field>
+
+        <Field label="Company size" hint="Headcount, approximate.">
+          <div className="book-chips">
+            {BOOK.sizes.map((s) => (
+              <button key={s} type="button" className={`book-chip ${form.size === s ? "is-on" : ""}`} onClick={() => set("size", s)}>{s}</button>
+            ))}
+          </div>
         </Field>
       </div>
 
@@ -494,7 +494,7 @@ function BookStep4({
 
       <BookActions
         secondary={{ label: "Back", onClick: onBack }}
-        primary={{ label: "Lock the session", onClick: onSubmit, disabled: !canSubmit, accent: true }}
+        primary={{ label: "Schedule call", onClick: onSubmit, disabled: !canSubmit, accent: true }}
         meta={canSubmit ? "60-second confirmation by email. No spam, no follow-up unless you ask." : "Tick the NDA box to lock the session."}
       />
     </div>

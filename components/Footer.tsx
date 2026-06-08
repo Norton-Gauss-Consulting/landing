@@ -10,9 +10,9 @@ export default function Footer() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/assets/logo-wordmark-white.png" alt="Norton-Gauss" />
             <p>
-              A senior consulting and engineering partner. We help enterprises turn fragmented, manual
-              operations into intelligent, automated and scalable digital systems — across hyper-automation,
-              agentic AI, custom software, cloud &amp; edge, and digital transformation.
+              A senior consulting and engineering partner for organizations scaling their operations. We turn
+              manual workflows, fragmented systems and stalled AI pilots into production systems — across
+              hyper-automation, agentic AI, custom software, cloud &amp; edge, and digital transformation.
             </p>
             <div className="addr">sales@nortongauss.com · www.nortongauss.com</div>
           </div>
@@ -58,7 +58,7 @@ export default function Footer() {
         </div>
         <div className="bottom">
           <span>© 2026 Norton-Gauss LLC · All rights reserved</span>
-          <span className="tagline serif">Drive disruptive change.</span>
+          <span className="tagline serif">Strategy, made operational.</span>
           <span>v 2.0 · 2026.05</span>
         </div>
       </div>

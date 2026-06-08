@@ -41,10 +41,11 @@ export default function Hero() {
               </span>
             </h1>
             <p className="hero-sub">
-              Norton-Gauss is a <strong>senior consulting and engineering</strong> partner. We help
-              enterprises turn fragmented, manual operations into intelligent, automated and scalable
-              digital systems — across <strong>hyper-automation, agentic AI, custom software, cloud
-              &amp; edge</strong>, and digital transformation.
+              Norton-Gauss is a <strong>senior consulting and engineering</strong> partner for
+              organizations scaling their operations. We turn manual workflows, fragmented systems and
+              stalled AI pilots into production systems — across <strong>hyper-automation, agentic AI,
+              custom software, cloud &amp; edge</strong>, and digital transformation. Strategy only
+              matters when it becomes operations.
             </p>
             <div className="hero-ctas">
               <Link className="btn primary" href="/book">

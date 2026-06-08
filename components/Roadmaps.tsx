@@ -27,7 +27,7 @@ export default function Roadmaps() {
     <section className="section-pad-sm" data-anim="roadmaps">
       <div className="section-tag">
         <span><span className="num">06</span> · Hyper-personalised roadmaps</span>
-        <span>No two operators · No two roadmaps</span>
+        <span>No two operations · No two roadmaps</span>
       </div>
       <div className="container">
         <div className="section-head">

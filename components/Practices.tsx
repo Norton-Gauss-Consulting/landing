@@ -70,7 +70,7 @@ function AgenticMiniDiagram() {
           </g>
         );
       })}
-      <text x="20" y="30" fontFamily="JetBrains Mono" fontSize="10" letterSpacing="1.4" fill="#5A6E6A">AGENTIC · TOPOLOGY</text>
+      <text x="20" y="30" fontFamily="JetBrains Mono" fontSize="10" letterSpacing="1.4" fill="#5A6E6A">AGENT · WORKFLOW</text>
       <text x="440" y="30" textAnchor="end" fontFamily="JetBrains Mono" fontSize="10" letterSpacing="1.4" fill="#D9FF35">6 AGENTS · 8 TOOLS</text>
       <text x="20" y="445" fontFamily="JetBrains Mono" fontSize="10" letterSpacing="1.4" fill="#5A6E6A">EVAL · TRACE · GUARDRAIL</text>
     </svg>
@@ -82,7 +82,7 @@ export default function Practices() {
     <section className="section-pad-sm">
       <div className="section-tag">
         <span><span className="num">02</span> · Practices</span>
-        <span>Seven practices · One operating discipline</span>
+        <span>Five practices · One operating discipline</span>
       </div>
       <div className="container">
         <div className="section-head">

@@ -48,7 +48,7 @@ export default function PracticesDetail() {
 
         <div className="pdetail-card" key={p.id}>
           <div className="head" style={{ display: "flex", flexDirection: "column", minHeight: 360 }}>
-            <div className="num">{p.num} / 07 · {p.code}</div>
+            <div className="num">{p.num} / 05 · {p.code}</div>
             <h3>{p.title}.</h3>
             <div className="cat">{p.category}</div>
             <p>{p.pitch}</p>

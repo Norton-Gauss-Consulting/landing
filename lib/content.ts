@@ -39,7 +39,7 @@ export const manifestoBanner = {
   pre: "Strategy is easy.",
   post: "Operations are ",
   em: "hard.",
-  sub: "Most transformation programmes produce decks. We produce systems.",
+  sub: "Most firms hand over recommendations. We hand over production systems.",
 };
 
 // ─── Thesis — old vs new ops ──────────────────────────────────────
@@ -95,35 +95,35 @@ export const services: Service[] = [
   {
     num: "01", id: "automation", title: "Hyper-Automation",
     meta: "Workflows · RPA · Integrations · Process orchestration",
-    summary: "We eliminate repetitive work and connect the systems your operation already runs on. Workflow orchestration, RPA, document and data automation, and the API integrations that make them feel like one system instead of twenty.",
+    summary: "Manual handoffs, re-keyed data and tools that do not talk slow your operation down and bury it in errors. We remove that work and connect the systems you already run — workflow orchestration, RPA, document and data automation, and the API integrations (REST, GraphQL, MCP) that make twenty systems behave like one. Built on platforms such as Power Platform, Azure and Python, and run in production rather than piloted.",
     bullets: ["Workflow automation & orchestration", "RPA & robotic process automation", "API & systems integration", "Document and data automation", "Process intelligence & re-engineering", "Business-process optimisation"],
     kpi: [{ k: "Median cycle-time cut", v: "−60%" }, { k: "STP improvement (avg.)", v: "+30pts" }],
   },
   {
     num: "02", id: "agentic", title: "Agentic AI",
     meta: "AI agents · Multi-agent workflows · Human-in-the-loop",
-    summary: "We design AI agents and AI-assisted workflows that can reason, act, escalate and support teams inside controlled business environments — with the evaluations, guardrails and monitoring that keep them safe in production.",
+    summary: "Most AI pilots prove value in a demo and stall before production. We design AI agents and AI-assisted workflows that reason, draft and act inside controlled business environments — always with human approval where it matters. Built with frameworks like LangGraph and models from OpenAI and Anthropic over an MCP tool layer, wrapped in the evaluations, guardrails, tracing and audit trails that keep them safe and accountable in production.",
     bullets: ["AI agents for internal operations", "Multi-agent workflows", "AI assistants & copilots", "Human-in-the-loop automation", "AI-powered decision support", "Evals, guardrails & monitoring"],
     kpi: [{ k: "Median process time saved", v: "−55%" }, { k: "Live agent deployments", v: "20+" }],
   },
   {
     num: "03", id: "transformation", title: "Digital Transformation",
     meta: "Operating model · Technology roadmap · Programme delivery",
-    summary: "We align business strategy, operating model, technology roadmap and execution. End-to-end programmes — diagnosis through delivery — with the change discipline that makes either one stick after the steering committee adjourns.",
+    summary: "Transformation programmes that produce slide decks rarely change how the business actually runs. We align operating model, technology roadmap and execution into one programme — diagnosis through delivery — with the change discipline and adoption work that make it stick after the steering committee adjourns.",
     bullets: ["Operating-model redesign", "Process modernisation", "Business-technology roadmap", "Transformation programme execution", "Change enablement & adoption", "Outcome instrumentation"],
     kpi: [{ k: "On-time, on-budget delivery", v: "92%" }, { k: "Adoption at +90 days (avg.)", v: "78%" }],
   },
   {
     num: "04", id: "software", title: "Custom Software Development",
     meta: "Web apps · Portals · Internal platforms · APIs",
-    summary: "We build the software off-the-shelf systems cannot — internal platforms, customer portals, workflow tools, dashboards, APIs and AI-enabled applications, engineered by senior full-stack teams that ship and run what they build.",
+    summary: "When off-the-shelf systems do not fit the way you work, the workarounds become the operation. We build the software that fits — internal platforms, customer portals, workflow tools, dashboards, APIs and AI-enabled applications — engineered by senior full-stack pods (TypeScript, React, Python, cloud-native) that ship and run what they build.",
     bullets: ["Web & internal applications", "Customer portals", "Workflow & operations tools", "Dashboards & analytics surfaces", "API & integration products", "AI-enabled applications"],
     kpi: [{ k: "Senior-only engineering pods", v: "100%" }, { k: "Typical MVP to production", v: "8–14 weeks" }],
   },
   {
     num: "05", id: "cloud-edge", title: "Cloud & Edge",
     meta: "Architecture · Migration · Cloud-native · Edge compute",
-    summary: "We modernise infrastructure, deployment and distributed systems — multi-cloud platforms, cloud-native applications and edge compute — engineered for elasticity, governance and unit economics that hold at scale.",
+    summary: "Infrastructure that cannot scale — or whose cost scales faster than the business — caps everything built on top of it. We modernise architecture, deployment and distributed systems across AWS, Azure and GCP, plus edge compute, with Kubernetes, Terraform and FinOps discipline — engineered for elasticity, governance and unit economics that hold at scale.",
     bullets: ["Cloud architecture & landing zones", "Cloud migration", "Cloud-native application engineering", "Edge computing", "Infrastructure modernisation", "Scalable, secure deployment foundations"],
     kpi: [{ k: "Median cloud-spend reduction", v: "−35%" }, { k: "Reference migration cadence", v: "8 weeks" }],
   },
@@ -168,11 +168,11 @@ export const additionalCases: Case[] = [
 // ─── Manifesto / About ────────────────────────────────────────────
 export type H2Part = string | { text: string; italic?: boolean; lime?: boolean };
 export const manifesto: { h2: H2Part[]; body: string[]; stats: { v: string; k: string }[] } = {
-  h2: ["A consultancy that brings the ", { italic: true, lime: true, text: "outside" }, " inside."],
+  h2: ["A firm that brings the ", { italic: true, lime: true, text: "outside" }, " inside."],
   body: [
     "<em>Norton's theorem</em> simplifies complex systems into their essential form. <em>Gauss's theorem</em> connects what surrounds a system to what happens inside it.",
     "Together, they describe our operating philosophy: <strong>we bring external knowledge, methodology and engineering precision into your internal environment</strong> — to reduce complexity into the few variables that actually drive outcomes.",
-    "We work as a small senior firm — engineers, architects and operating leaders who have built and run the systems they are asked to redesign. Pyramid leverage produces decks; operator leverage produces production change.",
+    "We work as a small senior firm — engineers, architects and operating leaders who have built and run the systems they are asked to redesign. Most firms staff engagements with large junior teams and deliver recommendations; we staff senior people who deliver production systems and stay accountable for the outcome.",
     "<em>Founded 2019.</em> Offices in EMEA and the Americas. Active across financial services, telecom, retail, manufacturing and platform businesses.",
   ],
   stats: [
@@ -222,7 +222,7 @@ export const roadmaps = {
   h2A: "Hyper-personalised roadmaps — ",
   h2Em: "shaped to you,",
   h2B: " not to a template.",
-  sub: "No two operators have the same constraint. Our engagements start with a custom roadmap — sequenced around your business priorities, your data estate and your operating maturity. Outputs are concrete, dated and unit-economic.",
+  sub: "No two operations have the same constraints. Every engagement starts with a custom roadmap — sequenced around your business priorities, your data estate and your operating maturity. Outputs are concrete, dated and tied to unit economics.",
   inputs: [
     { icon: "compass", k: "Business priorities", v: "Board-level objectives, P&L targets, market commitments." },
     { icon: "stack", k: "Tech & data estate", v: "Current platforms, data quality, vendor commitments, debt." },
@@ -299,21 +299,21 @@ export const impact: { lede: string; big: ImpactBig[]; detailed: ImpactDetail[] 
 // ─── Case study detail (Case page) ────────────────────────────────
 export const caseDetail = {
   tag: "Agentic AI · Hyper-Automation · Custom Software",
-  client: "Top-10 European Bank",
+  client: "Top-10 European bank (anonymized)",
   region: "EMEA · 11 countries",
   duration: "14 months",
   team: "9 engineers · 2 architects · 1 partner",
   titleA: "A treasury close that",
-  titleEm: "runs itself",
-  titleB: "between 02:00 and 06:00.",
+  titleEm: "runs overnight,",
+  titleB: "not over three days.",
   subtitle:
-    "How a top-10 European bank compressed an 11-country month-end close from three days to one overnight window — and gave the treasury team five days back per cycle.",
+    "How a top-10 European bank compressed an 11-country month-end close from three days to a single overnight window — and gave the treasury team five days back per cycle. Client details have been anonymized for confidentiality.",
   sections: [
     {
       h: "The situation",
       body: [
         "A top-10 European bank closed the books across <strong>11 country ledgers</strong> on a 3-day cycle that consumed treasury, finance ops and IT every month. The work was a series of manual handoffs across ten systems, with a long tail of exceptions handled in spreadsheets.",
-        "Adding regulators, acquisitions and a thinning back-office made the run untenable. The CFO needed a close that scaled with the business — and a finance team that did not lose a working week to it every month.",
+        "Adding regulators, acquisitions and a thinning back-office made the run untenable. The CFO needed a close that scaled with the business — and a finance team that did not lose a working week to it every month. Identifying details have been anonymized at the client's request.",
       ],
     },
     {
@@ -326,8 +326,8 @@ export const caseDetail = {
     {
       h: "What we built",
       body: [
-        "A close-orchestration platform built on top of the existing GLs, integrating with ERP, treasury and reporting. An <strong>agent fleet for reconciliation and exception triage</strong> with policy-bound auto-actions. A custom finance-ops portal for the treasury team to monitor the close, approve exceptions and export regulator-ready packages.",
-        "Around it: an evaluation harness for every agent path, integration tests across the ledger network, and an adoption programme that took the treasury team from sceptics to operators in a single cycle.",
+        "A close-orchestration platform built on top of the existing GLs, integrating with ERP, treasury and reporting. An <strong>agent fleet for reconciliation and exception triage</strong> with policy-bound actions, segregation-of-duties controls and human approval for anything above defined thresholds. A custom finance-ops portal for the treasury team to monitor the close, approve exceptions and export regulator-ready packages.",
+        "Governance was built in, not bolted on: every automated action writes to an <strong>immutable audit trail</strong>, an evaluation harness checks every agent path before release, and integration tests run across the ledger network. An adoption programme took the treasury team from sceptics to confident owners in a single cycle.",
       ],
     },
   ],
@@ -363,9 +363,9 @@ export const careers: {
   h1A: "Build the ",
   h1Em: "systems behind",
   h1B: " modern operations.",
-  sub: "We hire senior operators — engineers, architects and consultants who have run the systems they are now re-architecting. Pyramid leverage produces decks; operator leverage produces production change. We choose operator leverage every time.",
+  sub: "We hire senior people — engineers, architects and consultants who have run the systems they now re-architect. No large junior pyramids: every engagement is staffed by people who can take a system to production and own the outcome.",
   perks: [
-    { k: "Senior-only firm", v: "No pyramid leverage — every engagement is staffed with people who have run production." },
+    { k: "Senior-only firm", v: "No staffing pyramids — every engagement is run by people who have shipped to production." },
     { k: "Outcome contracts", v: "You ship into operations, not into slide decks. Outcomes are instrumented and contracted." },
     { k: "Compensation", v: "Above-market base + outcome-linked variable + meaningful equity in Norton-Gauss Labs." },
     { k: "Time & remote", v: "Async-first across three HQs (Paris · Sheridan · São Paulo). Four weeks of protected focus time per year." },

@@ -89,7 +89,7 @@ export default function CaseStudyPage() {
               <div className="body">
                 <p>
                   Five phases over fourteen months. The same shape as every Norton-Gauss engagement — Discover, Diagnose,
-                  Design, Implement, Scale.
+                  Design, Build, Operate.
                 </p>
                 <div className="cs-timeline">
                   {cs.timeline.map((t, i) => (
