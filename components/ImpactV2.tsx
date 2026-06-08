@@ -26,7 +26,7 @@ export default function ImpactV2() {
         </div>
 
         <h4 className="mono" style={{ marginTop: 48, marginBottom: 18, color: "var(--ng-ink-dim)" }}>
-          Detailed measurable outputs · medians, 2025 portfolio
+          Detailed outcomes · portfolio medians, completed engagements 2024–2026
         </h4>
         <div className="impact-detailed" data-anim-child-list>
           {imp.detailed.map((k, i) => (

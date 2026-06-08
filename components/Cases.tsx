@@ -46,7 +46,8 @@ export default function Cases() {
           <h2 className="display-2xl">Engagements that <em className="serif-em" style={{ color: "var(--ng-lime)" }}>compound.</em></h2>
           <p className="right">
             Three engagements that show the shape of how we work — when hyper-automation, agentic AI and custom software are
-            sequenced together rather than bought as separate workstreams.
+            sequenced together rather than bought as separate workstreams. Figures are specific to each engagement and were
+            measured during post-go-live operating reviews.
           </p>
         </div>
 
