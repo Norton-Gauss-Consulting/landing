@@ -117,7 +117,7 @@ export default function Compounding() {
     <section className="section-pad-sm" data-anim="compounding" id="compounding">
       <div className="section-tag">
         <span><span className="num">05</span> · Compounding</span>
-        <span>The platform pays back exponentially</span>
+        <span>Each engagement builds on the last</span>
       </div>
       <div className="container" ref={ref}>
         <div className="section-head">

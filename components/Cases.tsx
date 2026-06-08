@@ -54,7 +54,7 @@ export default function Cases() {
           <div className="l">
             <div className="tag">{f.tag}</div>
             <div className="client">{f.client}</div>
-            <h3>A treasury close that <em>runs itself</em><br />between 02:00 and 06:00.</h3>
+            <h3>A treasury close that <em>runs overnight,</em><br />not over three days.</h3>
             <p>{f.summary}</p>
             <div className="metrics">
               {f.metrics.map((m, i) => (

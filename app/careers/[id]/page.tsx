@@ -98,7 +98,7 @@ export default function JobDetail({ params }: { params: { id: string } }) {
             <p>Send us a CV, a portfolio, or just a couple of paragraphs about the work you&apos;re proudest of. We read everything.</p>
             <div className="btns">
               <a className="btn primary" href={`mailto:sales@nortongauss.com?subject=Application · ${encodeURIComponent(job.title)}`}>
-                <Arr />Apply for this role
+                <Arr />Apply now
               </a>
               <Link className="btn ghost" href="/careers"><Arr />Browse other roles</Link>
             </div>

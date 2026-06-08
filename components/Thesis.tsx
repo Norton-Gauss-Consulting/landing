@@ -7,18 +7,18 @@ export default function Thesis() {
     <section className="section-pad">
       <div className="section-tag">
         <span><span className="num">01</span> · The thesis</span>
-        <span>Why agentic now</span>
+        <span>Why operations stall</span>
       </div>
       <div className="container">
         <div className="section-head" style={{ marginBottom: 56 }}>
           <h2 className="thesis-h">
-            Software used to <em className="serif-em" style={{ color: "var(--ng-lime)" }}>wait.</em> <br />Now it{" "}
-            <em className="serif-em" style={{ color: "var(--ng-lime)" }}>thinks.</em>
+            Operations used to <em className="serif-em" style={{ color: "var(--ng-lime)" }}>wait.</em> <br />Now they can{" "}
+            <em className="serif-em" style={{ color: "var(--ng-lime)" }}>run.</em>
           </h2>
           <p className="right">
-            Agentic systems collapse the gap between intent and operation. The work isn&apos;t deploying a model — it&apos;s
-            rebuilding the operating model so machines do the cognitive work, humans set the policy, and the business can
-            finally tell the difference.
+            The gap is rarely strategy — it is execution. Manual handoffs, disconnected systems and pilots that never reach
+            production keep good decisions waiting. We rebuild the operating model so routine work runs as governed systems,
+            people set policy and approve exceptions, and the business can measure the difference.
           </p>
         </div>
 

@@ -42,7 +42,7 @@ export default function Framework() {
     <section className="section-pad-sm" id="framework">
       <div className="section-tag">
         <span><span className="num">03</span> · Framework</span>
-        <span>Discover · Diagnose · Design · Implement · Automate · Optimize · Scale</span>
+        <span>Discover · Diagnose · Design · Build · Operate · Scale</span>
       </div>
       <div className="container">
         <div className="section-head">
@@ -50,8 +50,8 @@ export default function Framework() {
             From discovery to <em className="serif-em" style={{ color: "var(--ng-lime)" }}>compounding</em> scale.
           </h2>
           <p className="right">
-            A seven-stage operating discipline. Each stage produces artefacts the next builds on — so phase four costs less
-            than phase three, and phase seven is a platform the next region inherits rather than rebuilds.
+            A six-stage operating discipline. Each stage produces artefacts the next builds on — so phase four costs less
+            than phase three, and the final phase is a platform the next region inherits rather than rebuilds.
           </p>
         </div>
 

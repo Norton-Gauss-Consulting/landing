@@ -15,10 +15,10 @@ export default function PracticesPage() {
         <section className="svc-hero">
           <SubpageMesh side="right" size="lg" />
           <div className="container">
-            <span className="eyebrow">Services · 07 practices</span>
+            <span className="eyebrow">Services · 05 practices</span>
             <h1 style={{ marginTop: 24 }}>What we <em className="serif-em">do.</em></h1>
             <p className="lede big">
-              Seven practices, one operating discipline. Each ships independently, and they compose into the kind of
+              Five practices, one operating discipline. Each ships independently, and they compose into the kind of
               transformation where every later phase is cheaper than the one before it.
             </p>
           </div>

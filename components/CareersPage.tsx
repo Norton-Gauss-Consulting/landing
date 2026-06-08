@@ -62,8 +62,8 @@ export default function CareersPage() {
           <div className="section-head" style={{ marginBottom: 48 }}>
             <h2 className="display-lg">Why people <em className="serif-em" style={{ color: "var(--ng-lime)" }}>stay.</em></h2>
             <p className="right">
-              We&apos;ve built this firm so senior operators can do their best work — outcome contracts, no pyramid
-              leverage, async-first across three timezones.
+              We&apos;ve built this firm so senior people can do their best work — outcome contracts, no staffing
+              pyramids, async-first across three timezones.
             </p>
           </div>
           <div className="grid">
@@ -134,7 +134,7 @@ export default function CareersPage() {
           <div className="vals">
             <div className="v">
               <div className="ix">Principle 01</div>
-              <h4>Operator leverage, not pyramid leverage.</h4>
+              <h4>Senior people, not staffing pyramids.</h4>
               <p>Every engagement is staffed with senior people. We don&apos;t bill juniors against an account; we hire people who can take a system to production and let them.</p>
             </div>
             <div className="v">
