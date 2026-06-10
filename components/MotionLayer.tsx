@@ -75,7 +75,7 @@ function setupLenis() {
   if (lenisStarted) return;
   lenisStarted = true;
   const lenis = new Lenis({
-    duration: 1.1,
+    duration: 0.3,
     easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel: true,
     wheelMultiplier: 1.0,
@@ -112,12 +112,25 @@ function setupScramble() {
         const text = k.nodeValue || "";
         if (!text.trim()) return;
         const frag = document.createDocumentFragment();
+        // Group each word's per-char spans in a nowrap wrapper so the line can
+        // only break at spaces — splitting chars into bare inline spans would
+        // otherwise let the headline break mid-word (defeating word-break:keep-all).
+        let wordEl: HTMLElement | null = null;
         for (const ch of text) {
-          if (ch === " ") { frag.appendChild(document.createTextNode(" ")); continue; }
+          if (ch === " ") {
+            frag.appendChild(document.createTextNode(" "));
+            wordEl = null;
+            continue;
+          }
+          if (!wordEl) {
+            wordEl = document.createElement("span");
+            wordEl.className = "ng-word";
+            frag.appendChild(wordEl);
+          }
           const sp = document.createElement("span");
           sp.className = "ng-char";
           sp.textContent = ch;
-          frag.appendChild(sp);
+          wordEl.appendChild(sp);
           charSpans.push(sp);
         }
         k.parentNode!.replaceChild(frag, k);
