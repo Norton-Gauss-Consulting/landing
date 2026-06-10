@@ -296,59 +296,100 @@ export const impact: { lede: string; big: ImpactBig[]; detailed: ImpactDetail[] 
   ],
 };
 
-// ─── Case study detail (Case page) ────────────────────────────────
-export const caseDetail = {
-  tag: "Agentic AI · Hyper-Automation · Custom Software",
-  client: "Top-10 European bank (anonymized)",
-  region: "EMEA · 11 countries",
-  duration: "14 months",
-  team: "9 engineers · 2 architects · 1 partner",
-  titleA: "A treasury close that",
-  titleEm: "runs overnight,",
-  titleB: "not over three days.",
-  subtitle:
-    "How a top-10 European bank compressed an 11-country month-end close from three days to a single overnight window — and gave the treasury team five days back per cycle. Client details have been anonymized for confidentiality.",
-  sections: [
-    {
-      h: "The situation",
-      body: [
-        "A top-10 European bank closed the books across <strong>11 country ledgers</strong> on a 3-day cycle that consumed treasury, finance ops and IT every month. The work was a series of manual handoffs across ten systems, with a long tail of exceptions handled in spreadsheets.",
-        "Adding regulators, acquisitions and a thinning back-office made the run untenable. The CFO needed a close that scaled with the business — and a finance team that did not lose a working week to it every month. Identifying details have been anonymized at the client's request.",
-      ],
-    },
-    {
-      h: "The diagnosis",
-      body: [
-        "Six weeks of frontline diagnostics found that <strong>74% of close work was repeatable reconciliation</strong>, and another 18% was exception handling that followed predictable patterns. The root constraint was not the GLs — it was the absence of an orchestration layer that could drive them all to one regulator-ready state.",
-        "We sized the prize, scoped the platform and contracted against measurable outcomes: cycle time, manual touches, and adoption at +90 days.",
-      ],
-    },
-    {
-      h: "What we built",
-      body: [
-        "A close-orchestration platform built on top of the existing GLs, integrating with ERP, treasury and reporting. An <strong>agent fleet for reconciliation and exception triage</strong> with policy-bound actions, segregation-of-duties controls and human approval for anything above defined thresholds. A custom finance-ops portal for the treasury team to monitor the close, approve exceptions and export regulator-ready packages.",
-        "Governance was built in, not bolted on: every automated action writes to an <strong>immutable audit trail</strong>, an evaluation harness checks every agent path before release, and integration tests run across the ledger network. An adoption programme took the treasury team from sceptics to confident owners in a single cycle.",
-      ],
-    },
-  ],
-  results: [
-    { v: "3d → 5h", k: "Close cycle", d: "Approx. three days to a single overnight window, all eleven ledgers." },
-    { v: "−92%", k: "Manual touches", d: "Per close cycle, after the second wave." },
-    { v: "78%", k: "Adoption at +90d", d: "Of the treasury team using the platform daily at 90 days." },
-    { v: "5 days", k: "Recovered per cycle", d: "Returned to higher-value treasury work." },
-  ],
-  quote: {
-    text: "Norton-Gauss did not bring us a product. They brought us a way of running the close that we could own — and a small team that built it with us.",
-    who: "Group CFO · European Bank",
-  },
-  timeline: [
-    { phase: "Phase 01", h: "Discover", d: "Close-process map across 11 ledgers and 10 systems.", dur: "6 weeks" },
-    { phase: "Phase 02", h: "Diagnose", d: "Constraint analysis, exception-pattern catalogue, business case.", dur: "4 weeks" },
-    { phase: "Phase 03", h: "Design", d: "Orchestration architecture, agent design, ops-portal product spec.", dur: "8 weeks" },
-    { phase: "Phase 04", h: "Build", d: "Platform build-out, agent factory, portal, ledger integrations.", dur: "7 months" },
-    { phase: "Phase 05", h: "Operate", d: "First close wave, adoption programme, exception triage live.", dur: "3 months" },
-  ],
+// ─── Case studies (index /case + detail /case/[slug]) ─────────────
+// One source of truth. The index maps over `caseStudies` (the `.card`
+// fields); /case/[slug] renders a single study from `.detail`. Adding a
+// case = appending one entry here — the index card and the static detail
+// page both follow automatically.
+export type CaseStudy = {
+  slug: string;
+  card: { tag: string; client: string; title: string; summary: string; metrics: Metric[] };
+  detail: {
+    eyebrow: string;
+    client: string; region: string; duration: string; team: string;
+    titleA: string; titleEm: string; titleB: string; subtitle: string;
+    sections: { h: string; body: string[] }[];
+    resultsIntro: string;
+    results: { v: string; k: string; d: string }[];
+    quote: { text: string; who: string };
+    timelineIntro: string;
+    timeline: { phase: string; h: string; d: string; dur: string }[];
+  };
 };
+
+export const caseStudies: CaseStudy[] = [
+  {
+    slug: "treasury-close",
+    card: {
+      tag: "Agentic AI · Hyper-Automation",
+      client: "Top-10 European bank · 11 countries",
+      title: "A treasury close that runs overnight, not over three days.",
+      summary:
+        "Agentic close-the-books across 11 country ledgers — reconciliation, exception triage, regulator-ready exports. An approximately three-day cycle compressed to a single overnight window, with manual touches down 92%, measured during post-go-live operating reviews.",
+      metrics: [
+        { k: "Close cycle", v: "3d → 5h" },
+        { k: "Manual touches", v: "−92%" },
+        { k: "Programme length", v: "14 months" },
+      ],
+    },
+    detail: {
+      eyebrow: "Agentic AI · Hyper-Automation · Custom Software",
+      client: "Top-10 European bank (anonymized)",
+      region: "EMEA · 11 countries",
+      duration: "14 months",
+      team: "9 engineers · 2 architects · 1 partner",
+      titleA: "A treasury close that",
+      titleEm: "runs overnight,",
+      titleB: "not over three days.",
+      subtitle:
+        "How a top-10 European bank compressed an 11-country month-end close from three days to a single overnight window — and gave the treasury team five days back per cycle. Client details have been anonymized for confidentiality.",
+      sections: [
+        {
+          h: "The situation",
+          body: [
+            "A top-10 European bank closed the books across <strong>11 country ledgers</strong> on a 3-day cycle that consumed treasury, finance ops and IT every month. The work was a series of manual handoffs across ten systems, with a long tail of exceptions handled in spreadsheets.",
+            "Adding regulators, acquisitions and a thinning back-office made the run untenable. The CFO needed a close that scaled with the business — and a finance team that did not lose a working week to it every month. Identifying details have been anonymized at the client's request.",
+          ],
+        },
+        {
+          h: "The diagnosis",
+          body: [
+            "Six weeks of frontline diagnostics found that <strong>74% of close work was repeatable reconciliation</strong>, and another 18% was exception handling that followed predictable patterns. The root constraint was not the GLs — it was the absence of an orchestration layer that could drive them all to one regulator-ready state.",
+            "We sized the prize, scoped the platform and contracted against measurable outcomes: cycle time, manual touches, and adoption at +90 days.",
+          ],
+        },
+        {
+          h: "What we built",
+          body: [
+            "A close-orchestration platform built on top of the existing GLs, integrating with ERP, treasury and reporting. An <strong>agent fleet for reconciliation and exception triage</strong> with policy-bound actions, segregation-of-duties controls and human approval for anything above defined thresholds. A custom finance-ops portal for the treasury team to monitor the close, approve exceptions and export regulator-ready packages.",
+            "Governance was built in, not bolted on: every automated action writes to an <strong>immutable audit trail</strong>, an evaluation harness checks every agent path before release, and integration tests run across the ledger network. An adoption programme took the treasury team from sceptics to confident owners in a single cycle.",
+          ],
+        },
+      ],
+      resultsIntro:
+        "Twelve months post platform go-live, with the operating model embedded in the bank's treasury team and the agent fleet trained on a full close cycle. All figures were measured during post-go-live operating reviews and reflect this engagement, not a portfolio average.",
+      results: [
+        { v: "3d → 5h", k: "Close cycle", d: "Approx. three days to a single overnight window, all eleven ledgers." },
+        { v: "−92%", k: "Manual touches", d: "Per close cycle, after the second wave." },
+        { v: "78%", k: "Adoption at +90d", d: "Of the treasury team using the platform daily at 90 days." },
+        { v: "5 days", k: "Recovered per cycle", d: "Returned to higher-value treasury work." },
+      ],
+      quote: {
+        text: "Norton-Gauss did not bring us a product. They brought us a way of running the close that we could own — and a small team that built it with us.",
+        who: "Group CFO · European Bank",
+      },
+      timelineIntro:
+        "Five phases over fourteen months. The same shape as every Norton-Gauss engagement — Discover, Diagnose, Design, Build, Operate.",
+      timeline: [
+        { phase: "Phase 01", h: "Discover", d: "Close-process map across 11 ledgers and 10 systems.", dur: "6 weeks" },
+        { phase: "Phase 02", h: "Diagnose", d: "Constraint analysis, exception-pattern catalogue, business case.", dur: "4 weeks" },
+        { phase: "Phase 03", h: "Design", d: "Orchestration architecture, agent design, ops-portal product spec.", dur: "8 weeks" },
+        { phase: "Phase 04", h: "Build", d: "Platform build-out, agent factory, portal, ledger integrations.", dur: "7 months" },
+        { phase: "Phase 05", h: "Operate", d: "First close wave, adoption programme, exception triage live.", dur: "3 months" },
+      ],
+    },
+  },
+];
 
 // ─── Careers ───────────────────────────────────────────────────────
 export type Job = {
