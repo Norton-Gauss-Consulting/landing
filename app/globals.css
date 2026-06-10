@@ -2736,7 +2736,11 @@ section { position: relative; }
 @media (max-width: 1024px) {
   :root { --gutter: 40px; }
 
-  .hero-inner { grid-template-columns: 1fr; gap: 40px; align-items: start; min-height: 0; padding-top: 72px; padding-bottom: 88px; }
+  /* minmax(0,1fr) — a bare 1fr is minmax(auto,1fr), whose auto-min inflates to
+     the .opsfeed's intrinsic 460px width and blows the single column out past
+     the viewport on phones. 0 min lets the track shrink so opsfeed/hero-sub
+     fit the screen. */
+  .hero-inner { grid-template-columns: minmax(0, 1fr); gap: 40px; align-items: start; min-height: 0; padding-top: 72px; padding-bottom: 88px; }
   .hero-l { max-width: none; }
   .hero-r { align-self: stretch; padding-bottom: 0; }
   .hero { min-height: 0; }
