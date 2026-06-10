@@ -37,17 +37,18 @@ export default function CaseStudyDetail({ params }: { params: { slug: string } }
               <div>
                 <span className="eyebrow">{cs.eyebrow}</span>
                 <h1 style={{ marginTop: 28 }}>
-                  {cs.titleA} <em className="serif-em">{cs.titleEm}</em>
-                  <br />
-                  {cs.titleB}
+                  {cs.titleA}
+                  {cs.titleEm && <> <em className="serif-em">{cs.titleEm}</em></>}
+                  {cs.titleB && <><br />{cs.titleB}</>}
                 </h1>
                 <p className="lede big">{cs.subtitle}</p>
               </div>
               <dl className="meta">
                 <div><dt>Client</dt><dd>{cs.client}</dd></div>
                 <div><dt>Region</dt><dd>{cs.region}</dd></div>
-                <div><dt>Duration</dt><dd>{cs.duration}</dd></div>
-                <div><dt>Team</dt><dd>{cs.team}</dd></div>
+                {cs.industry && <div><dt>Industry</dt><dd>{cs.industry}</dd></div>}
+                {cs.duration && <div><dt>Duration</dt><dd>{cs.duration}</dd></div>}
+                {cs.team && <div><dt>Team</dt><dd>{cs.team}</dd></div>}
               </dl>
             </div>
           </div>
@@ -73,13 +74,13 @@ export default function CaseStudyDetail({ params }: { params: { slug: string } }
             <div className="row">
               <h2>The results.</h2>
               <div className="body">
-                <p>{cs.resultsIntro}</p>
+                {cs.resultsIntro && <p>{cs.resultsIntro}</p>}
                 <div className="cs-results-grid">
                   {cs.results.map((r, i) => (
                     <div key={i}>
                       <div className="v">{r.v}</div>
                       <div className="k">{r.k}</div>
-                      <div className="desc">{r.d}</div>
+                      {r.d && <div className="desc">{r.d}</div>}
                     </div>
                   ))}
                 </div>
@@ -88,35 +89,39 @@ export default function CaseStudyDetail({ params }: { params: { slug: string } }
           </div>
         </section>
 
-        <section className="cs-quote">
-          <div className="container">
-            <blockquote>
-              <span dangerouslySetInnerHTML={{ __html: cs.quote.text.replace(/own/, "<em>own</em>") }} />
-              <span className="who">— {cs.quote.who}</span>
-            </blockquote>
-          </div>
-        </section>
+        {cs.quote && (
+          <section className="cs-quote">
+            <div className="container">
+              <blockquote>
+                <span dangerouslySetInnerHTML={{ __html: cs.quote.text.replace(/own/, "<em>own</em>") }} />
+                <span className="who">— {cs.quote.who}</span>
+              </blockquote>
+            </div>
+          </section>
+        )}
 
-        <section className="cs-section">
-          <div className="container">
-            <div className="row">
-              <h2>The timeline.</h2>
-              <div className="body">
-                <p>{cs.timelineIntro}</p>
-                <div className="cs-timeline">
-                  {cs.timeline.map((t, i) => (
-                    <div key={i} className="step">
-                      <div className="phase">{t.phase}</div>
-                      <h4>{t.h}</h4>
-                      <p>{t.d}</p>
-                      <div className="dur">{t.dur}</div>
-                    </div>
-                  ))}
+        {cs.timeline && cs.timeline.length > 0 && (
+          <section className="cs-section">
+            <div className="container">
+              <div className="row">
+                <h2>The timeline.</h2>
+                <div className="body">
+                  {cs.timelineIntro && <p>{cs.timelineIntro}</p>}
+                  <div className="cs-timeline">
+                    {cs.timeline.map((t, i) => (
+                      <div key={i} className="step">
+                        <div className="phase">{t.phase}</div>
+                        <h4>{t.h}</h4>
+                        <p>{t.d}</p>
+                        <div className="dur">{t.dur}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         <FinalCTA />
       </div>
