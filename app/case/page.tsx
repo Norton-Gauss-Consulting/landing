@@ -1,108 +1,53 @@
-// Norton-Gauss · Case study page (ported from CaseStudyPage in src/pages.jsx)
+// Norton-Gauss · Case studies index. Not in the handoff — composed from the
+// existing design system: the home "Case studies" section header (verbatim
+// copy) plus the `.case-secondary` card used across the home cases grid. Each
+// card links to its /case/[slug] detail. Maps over the single `caseStudies`
+// source, so adding a case adds a card here automatically.
 import Topbar from "@/components/Topbar";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import FinalCTA from "@/components/FinalCTA";
-import SubpageMesh from "@/components/SubpageMesh";
-import { caseDetail as cs } from "@/lib/content";
+import Link from "next/link";
+import { caseStudies } from "@/lib/content";
 
-export default function CaseStudyPage() {
+export default function CaseIndex() {
   return (
     <>
       <Topbar />
       <Nav />
       <div className="page-enter">
-        <section className="cs-hero">
-          <SubpageMesh side="right" size="md" />
-          <div className="container">
-            <div className="top">
-              <div>
-                <span className="eyebrow">{cs.tag}</span>
-                <h1 style={{ marginTop: 28 }}>
-                  {cs.titleA} <em className="serif-em">{cs.titleEm}</em>
-                  <br />
-                  {cs.titleB}
-                </h1>
-                <p className="lede big">{cs.subtitle}</p>
-              </div>
-              <dl className="meta">
-                <div><dt>Client</dt><dd>{cs.client}</dd></div>
-                <div><dt>Region</dt><dd>{cs.region}</dd></div>
-                <div><dt>Duration</dt><dd>{cs.duration}</dd></div>
-                <div><dt>Team</dt><dd>{cs.team}</dd></div>
-              </dl>
-            </div>
+        <section className="section-pad-sm">
+          <div className="section-tag">
+            <span><span className="num">09</span> · Case studies</span>
+            <span>Production engagements · Five core practices</span>
           </div>
-        </section>
-
-        {cs.sections.map((s, i) => (
-          <section className="cs-section" key={i}>
-            <div className="container">
-              <div className="row">
-                <h2>{s.h}.</h2>
-                <div className="body">
-                  {s.body.map((p, j) => (
-                    <p key={j} dangerouslySetInnerHTML={{ __html: p }} />
-                  ))}
-                </div>
-              </div>
+          <div className="container">
+            <div className="section-head">
+              <h2 className="display-2xl">Engagements that <em className="serif-em" style={{ color: "var(--ng-lime)" }}>compound.</em></h2>
+              <p className="right">
+                Three engagements that show the shape of how we work — when hyper-automation, agentic AI and custom software are
+                sequenced together rather than bought as separate workstreams. Figures are specific to each engagement and were
+                measured during post-go-live operating reviews.
+              </p>
             </div>
-          </section>
-        ))}
 
-        <section className="cs-section">
-          <div className="container">
-            <div className="row">
-              <h2>The results.</h2>
-              <div className="body">
-                <p>
-                  Twelve months post platform go-live, with the operating model embedded in the bank&apos;s treasury team
-                  and the agent fleet trained on a full close cycle. All figures were measured during post-go-live operating
-                  reviews and reflect this engagement, not a portfolio average.
-                </p>
-                <div className="cs-results-grid">
-                  {cs.results.map((r, i) => (
-                    <div key={i}>
-                      <div className="v">{r.v}</div>
-                      <div className="k">{r.k}</div>
-                      <div className="desc">{r.d}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="cs-quote">
-          <div className="container">
-            <blockquote>
-              <span dangerouslySetInnerHTML={{ __html: cs.quote.text.replace(/own/, "<em>own</em>") }} />
-              <span className="who">— {cs.quote.who}</span>
-            </blockquote>
-          </div>
-        </section>
-
-        <section className="cs-section">
-          <div className="container">
-            <div className="row">
-              <h2>The timeline.</h2>
-              <div className="body">
-                <p>
-                  Five phases over fourteen months. The same shape as every Norton-Gauss engagement — Discover, Diagnose,
-                  Design, Build, Operate.
-                </p>
-                <div className="cs-timeline">
-                  {cs.timeline.map((t, i) => (
-                    <div key={i} className="step">
-                      <div className="phase">{t.phase}</div>
-                      <h4>{t.h}</h4>
-                      <p>{t.d}</p>
-                      <div className="dur">{t.dur}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="case-secondary-grid">
+              {caseStudies.map((s) => (
+                <Link key={s.slug} className="case-secondary" href={`/case/${s.slug}`}>
+                  <div className="tag">{s.card.tag}</div>
+                  <div className="client">{s.card.client}</div>
+                  <h3>{s.card.title}</h3>
+                  <p>{s.card.summary}</p>
+                  <div className="metrics">
+                    {s.card.metrics.map((m, i) => (
+                      <div key={i}>
+                        <div className="v">{m.v}</div>
+                        <div className="k">{m.k}</div>
+                      </div>
+                    ))}
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </section>

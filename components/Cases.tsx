@@ -51,7 +51,7 @@ export default function Cases() {
           </p>
         </div>
 
-        <Link className="case-feature" href="/case" style={{ cursor: "pointer" }}>
+        <Link className="case-feature" href="/case/treasury-close" style={{ cursor: "pointer" }}>
           <div className="l">
             <div className="tag">{f.tag}</div>
             <div className="client">{f.client}</div>
