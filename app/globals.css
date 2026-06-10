@@ -204,12 +204,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   letter-spacing: -0.008em; line-height: 1;
 }
 .nav-links { display: flex; gap: 4px; justify-content: center; }
-.nav-links button {
+.nav-links button, .nav-links a {
   font-family: var(--font-body); font-size: 14px; font-weight: 450; color: var(--ng-ink-mute);
   padding: 8px 16px; border-radius: 999px; transition: color 0.2s, background 0.2s;
 }
-.nav-links button:hover { color: var(--ng-ink); background: var(--ng-line-soft); }
-.nav-links button.active { color: var(--ng-bg); background: var(--ng-lime); }
+.nav-links button:hover, .nav-links a:hover { color: var(--ng-ink); background: var(--ng-line-soft); }
+.nav-links button.active, .nav-links a.active { color: var(--ng-bg); background: var(--ng-lime); }
 .nav-actions { display: flex; align-items: center; gap: 16px; }
 
 /* ─── HERO ───────────────────────────────────────────────────────── */
@@ -2719,17 +2719,18 @@ section { position: relative; }
   transition: transform 0.42s var(--ease);
 }
 .nav-drawer__links { display: flex; flex-direction: column; gap: 2px; }
-.nav-drawer__links button {
+.nav-drawer__links button, .nav-drawer__links a {
   font-family: var(--font-body); font-size: 18px; font-weight: 500;
   color: var(--ng-ink); text-align: left;
   padding: 14px 16px; border-radius: 12px; min-height: 48px;
+  display: flex; align-items: center;
   transition: color 0.2s, background 0.2s;
 }
-.nav-drawer__links button:hover,
-.nav-drawer__links button:active { color: var(--ng-bg); background: var(--ng-lime); }
-.nav-drawer__links button.active { color: var(--ng-lime); }
-.nav-drawer__links button.active:hover,
-.nav-drawer__links button.active:active { color: var(--ng-bg); }
+.nav-drawer__links button:hover, .nav-drawer__links a:hover,
+.nav-drawer__links button:active, .nav-drawer__links a:active { color: var(--ng-bg); background: var(--ng-lime); }
+.nav-drawer__links button.active, .nav-drawer__links a.active { color: var(--ng-lime); }
+.nav-drawer__links button.active:hover, .nav-drawer__links a.active:hover,
+.nav-drawer__links button.active:active, .nav-drawer__links a.active:active { color: var(--ng-bg); }
 .nav-drawer__cta { margin-top: 16px; justify-content: center; padding: 16px 22px; font-size: 15px; }
 
 /* ════════ ≤1024px — tablet ════════ */

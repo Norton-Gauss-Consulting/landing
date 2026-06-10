@@ -296,59 +296,331 @@ export const impact: { lede: string; big: ImpactBig[]; detailed: ImpactDetail[] 
   ],
 };
 
-// ─── Case study detail (Case page) ────────────────────────────────
-export const caseDetail = {
-  tag: "Agentic AI · Hyper-Automation · Custom Software",
-  client: "Top-10 European bank (anonymized)",
-  region: "EMEA · 11 countries",
-  duration: "14 months",
-  team: "9 engineers · 2 architects · 1 partner",
-  titleA: "A treasury close that",
-  titleEm: "runs overnight,",
-  titleB: "not over three days.",
-  subtitle:
-    "How a top-10 European bank compressed an 11-country month-end close from three days to a single overnight window — and gave the treasury team five days back per cycle. Client details have been anonymized for confidentiality.",
-  sections: [
-    {
-      h: "The situation",
-      body: [
-        "A top-10 European bank closed the books across <strong>11 country ledgers</strong> on a 3-day cycle that consumed treasury, finance ops and IT every month. The work was a series of manual handoffs across ten systems, with a long tail of exceptions handled in spreadsheets.",
-        "Adding regulators, acquisitions and a thinning back-office made the run untenable. The CFO needed a close that scaled with the business — and a finance team that did not lose a working week to it every month. Identifying details have been anonymized at the client's request.",
-      ],
-    },
-    {
-      h: "The diagnosis",
-      body: [
-        "Six weeks of frontline diagnostics found that <strong>74% of close work was repeatable reconciliation</strong>, and another 18% was exception handling that followed predictable patterns. The root constraint was not the GLs — it was the absence of an orchestration layer that could drive them all to one regulator-ready state.",
-        "We sized the prize, scoped the platform and contracted against measurable outcomes: cycle time, manual touches, and adoption at +90 days.",
-      ],
-    },
-    {
-      h: "What we built",
-      body: [
-        "A close-orchestration platform built on top of the existing GLs, integrating with ERP, treasury and reporting. An <strong>agent fleet for reconciliation and exception triage</strong> with policy-bound actions, segregation-of-duties controls and human approval for anything above defined thresholds. A custom finance-ops portal for the treasury team to monitor the close, approve exceptions and export regulator-ready packages.",
-        "Governance was built in, not bolted on: every automated action writes to an <strong>immutable audit trail</strong>, an evaluation harness checks every agent path before release, and integration tests run across the ledger network. An adoption programme took the treasury team from sceptics to confident owners in a single cycle.",
-      ],
-    },
-  ],
-  results: [
-    { v: "3d → 5h", k: "Close cycle", d: "Approx. three days to a single overnight window, all eleven ledgers." },
-    { v: "−92%", k: "Manual touches", d: "Per close cycle, after the second wave." },
-    { v: "78%", k: "Adoption at +90d", d: "Of the treasury team using the platform daily at 90 days." },
-    { v: "5 days", k: "Recovered per cycle", d: "Returned to higher-value treasury work." },
-  ],
-  quote: {
-    text: "Norton-Gauss did not bring us a product. They brought us a way of running the close that we could own — and a small team that built it with us.",
-    who: "Group CFO · European Bank",
-  },
-  timeline: [
-    { phase: "Phase 01", h: "Discover", d: "Close-process map across 11 ledgers and 10 systems.", dur: "6 weeks" },
-    { phase: "Phase 02", h: "Diagnose", d: "Constraint analysis, exception-pattern catalogue, business case.", dur: "4 weeks" },
-    { phase: "Phase 03", h: "Design", d: "Orchestration architecture, agent design, ops-portal product spec.", dur: "8 weeks" },
-    { phase: "Phase 04", h: "Build", d: "Platform build-out, agent factory, portal, ledger integrations.", dur: "7 months" },
-    { phase: "Phase 05", h: "Operate", d: "First close wave, adoption programme, exception triage live.", dur: "3 months" },
-  ],
+// ─── Case studies (index /case + detail /case/[slug]) ─────────────
+// One source of truth. The index maps over `caseStudies` (the `.card`
+// fields); /case/[slug] renders a single study from `.detail`. Adding a
+// case = appending one entry here — the index card and the static detail
+// page both follow automatically.
+export type CaseStudy = {
+  slug: string;
+  card: { tag: string; client: string; title: string; summary: string; metrics: Metric[] };
+  detail: {
+    eyebrow: string;
+    client: string; region: string;
+    // Optional meta — only rendered when present. Industry is shown for the
+    // newer telecom/edge studies; Duration/Team are omitted where unconfirmed.
+    industry?: string; duration?: string; team?: string;
+    // titleEm (serif-italic accent) and titleB (second line) are optional so a
+    // single-line headline can set just titleA.
+    titleA: string; titleEm?: string; titleB?: string; subtitle: string;
+    sections: { h: string; body: string[] }[];
+    resultsIntro?: string;
+    // Per-metric description `d` is optional — the results grid drops the
+    // caption line when a study supplies only value + label.
+    results: { v: string; k: string; d?: string }[];
+    // Quote and timeline are optional; studies without them render neither block.
+    quote?: { text: string; who: string };
+    timelineIntro?: string;
+    timeline?: { phase: string; h: string; d: string; dur: string }[];
+  };
 };
+
+export const caseStudies: CaseStudy[] = [
+  {
+    slug: "treasury-close",
+    card: {
+      tag: "Agentic AI · Hyper-Automation",
+      client: "Top-10 European bank · 11 countries",
+      title: "A treasury close that runs overnight, not over three days.",
+      summary:
+        "Agentic close-the-books across 11 country ledgers — reconciliation, exception triage, regulator-ready exports. An approximately three-day cycle compressed to a single overnight window, with manual touches down 92%, measured during post-go-live operating reviews.",
+      metrics: [
+        { k: "Close cycle", v: "3d → 5h" },
+        { k: "Manual touches", v: "−92%" },
+        { k: "Programme length", v: "14 months" },
+      ],
+    },
+    detail: {
+      eyebrow: "Agentic AI · Hyper-Automation · Custom Software",
+      client: "Top-10 European bank (anonymized)",
+      region: "EMEA · 11 countries",
+      duration: "14 months",
+      team: "9 engineers · 2 architects · 1 partner",
+      titleA: "A treasury close that",
+      titleEm: "runs overnight,",
+      titleB: "not over three days.",
+      subtitle:
+        "How a top-10 European bank compressed an 11-country month-end close from three days to a single overnight window — and gave the treasury team five days back per cycle. Client details have been anonymized for confidentiality.",
+      sections: [
+        {
+          h: "The situation",
+          body: [
+            "A top-10 European bank closed the books across <strong>11 country ledgers</strong> on a 3-day cycle that consumed treasury, finance ops and IT every month. The work was a series of manual handoffs across ten systems, with a long tail of exceptions handled in spreadsheets.",
+            "Adding regulators, acquisitions and a thinning back-office made the run untenable. The CFO needed a close that scaled with the business — and a finance team that did not lose a working week to it every month. Identifying details have been anonymized at the client's request.",
+          ],
+        },
+        {
+          h: "The diagnosis",
+          body: [
+            "Six weeks of frontline diagnostics found that <strong>74% of close work was repeatable reconciliation</strong>, and another 18% was exception handling that followed predictable patterns. The root constraint was not the GLs — it was the absence of an orchestration layer that could drive them all to one regulator-ready state.",
+            "We sized the prize, scoped the platform and contracted against measurable outcomes: cycle time, manual touches, and adoption at +90 days.",
+          ],
+        },
+        {
+          h: "What we built",
+          body: [
+            "A close-orchestration platform built on top of the existing GLs, integrating with ERP, treasury and reporting. An <strong>agent fleet for reconciliation and exception triage</strong> with policy-bound actions, segregation-of-duties controls and human approval for anything above defined thresholds. A custom finance-ops portal for the treasury team to monitor the close, approve exceptions and export regulator-ready packages.",
+            "Governance was built in, not bolted on: every automated action writes to an <strong>immutable audit trail</strong>, an evaluation harness checks every agent path before release, and integration tests run across the ledger network. An adoption programme took the treasury team from sceptics to confident owners in a single cycle.",
+          ],
+        },
+      ],
+      resultsIntro:
+        "Twelve months post platform go-live, with the operating model embedded in the bank's treasury team and the agent fleet trained on a full close cycle. All figures were measured during post-go-live operating reviews and reflect this engagement, not a portfolio average.",
+      results: [
+        { v: "3d → 5h", k: "Close cycle", d: "Approx. three days to a single overnight window, all eleven ledgers." },
+        { v: "−92%", k: "Manual touches", d: "Per close cycle, after the second wave." },
+        { v: "78%", k: "Adoption at +90d", d: "Of the treasury team using the platform daily at 90 days." },
+        { v: "5 days", k: "Recovered per cycle", d: "Returned to higher-value treasury work." },
+      ],
+      quote: {
+        text: "Norton-Gauss did not bring us a product. They brought us a way of running the close that we could own — and a small team that built it with us.",
+        who: "Group CFO · European Bank",
+      },
+      timelineIntro:
+        "Five phases over fourteen months. The same shape as every Norton-Gauss engagement — Discover, Diagnose, Design, Build, Operate.",
+      timeline: [
+        { phase: "Phase 01", h: "Discover", d: "Close-process map across 11 ledgers and 10 systems.", dur: "6 weeks" },
+        { phase: "Phase 02", h: "Diagnose", d: "Constraint analysis, exception-pattern catalogue, business case.", dur: "4 weeks" },
+        { phase: "Phase 03", h: "Design", d: "Orchestration architecture, agent design, ops-portal product spec.", dur: "8 weeks" },
+        { phase: "Phase 04", h: "Build", d: "Platform build-out, agent factory, portal, ledger integrations.", dur: "7 months" },
+        { phase: "Phase 05", h: "Operate", d: "First close wave, adoption programme, exception triage live.", dur: "3 months" },
+      ],
+    },
+  },
+  {
+    slug: "legal-requisitions-automation",
+    card: {
+      tag: "Agentic AI · Hyper-Automation · Document Intelligence",
+      client: "Global MVNA/E operator · Worldwide",
+      title: "Six hundred legal requisitions, now cleared in five minutes.",
+      summary:
+        "A worldwide mobile virtual network aggregator/enabler was drowning in 600+ legal requisitions scattered across PDF, Word, Excel and JSON. We automated the end-to-end process — execution time collapsed from three days to five minutes.",
+      metrics: [
+        { v: "100%", k: "End-to-end automated" },
+        { v: "3 days → 5 min", k: "Execution time" },
+      ],
+    },
+    detail: {
+      eyebrow: "Agentic AI · Hyper-Automation · Document Intelligence",
+      client: "Global MVNA/E operator",
+      region: "Worldwide",
+      industry: "Telecom",
+      titleA: "Six hundred legal requisitions,",
+      titleEm: "now cleared",
+      titleB: "in five minutes.",
+      subtitle:
+        "A worldwide mobile virtual network aggregator/enabler was drowning in 600+ legal requisitions scattered across PDF, Word, Excel and JSON. We automated the end-to-end process — execution time collapsed from three days to five minutes.",
+      sections: [
+        {
+          h: "The situation",
+          body: [
+            "The operator runs a global MVNA/E footprint and was absorbing more than 600 legal requisitions, with source material arriving unstructured and decentralized — PDFs, Word files, spreadsheets and raw JSON, with no common pipeline. Every requisition meant manual reading, extraction and routing, and operational performance degraded as the backlog outpaced the team.",
+          ],
+        },
+        {
+          h: "What we did",
+          body: [
+            "We built a deliberately low-cost AI-plus-automation layer that ingests any format, extracts and structures the relevant data, and drives each requisition end-to-end with no manual handling — automating 100% of the process from intake to resolution.",
+          ],
+        },
+      ],
+      results: [
+        { v: "100%", k: "End-to-end automated" },
+        { v: "3 days → 5 min", k: "Execution time" },
+        { v: "600+", k: "Requisitions absorbed" },
+        { v: "4 formats", k: "Unified (PDF · Word · Excel · JSON)" },
+      ],
+    },
+  },
+  {
+    slug: "rom-proposals-automation",
+    card: {
+      tag: "Hyper-Automation · Pricing Engine · Sales Ops",
+      client: "US in-building wireless integrator · United States",
+      title: "ROM proposals in ten minutes — without a technical sales team.",
+      summary:
+        "A US in-building wireless integrator automated 90% of its ROM proposals against its own pricing model and strategy. Lead time fell from five days to ten minutes — and sales stopped depending on scarce technical specialists.",
+      metrics: [
+        { v: "90%", k: "Of ROM auto-generated" },
+        { v: "5 days → 10 min", k: "Proposal lead time" },
+      ],
+    },
+    detail: {
+      eyebrow: "Hyper-Automation · Pricing Engine · Sales Ops",
+      client: "US in-building wireless integrator",
+      region: "United States",
+      industry: "In-building wireless",
+      titleA: "ROM proposals",
+      titleEm: "in ten minutes",
+      titleB: "— without a technical sales team.",
+      subtitle:
+        "A US in-building wireless integrator automated 90% of its ROM proposals against its own pricing model and strategy. Lead time fell from five days to ten minutes — and sales stopped depending on scarce technical specialists.",
+      sections: [
+        {
+          h: "The situation",
+          body: [
+            "Rough-order-of-magnitude (ROM) proposals were a five-day bottleneck. Each one required a technical salesperson to gather and input engineering detail before pricing could begin, making the sales motion slow and dependent on a narrow pool of specialists.",
+          ],
+        },
+        {
+          h: "What we did",
+          body: [
+            "We encoded the customer's pricing model and commercial strategy into an automation engine that generates 90% of the ROM proposition automatically, leaving only a final human review and approval. Salespeople no longer supply technical inputs — removing the dependency on technical sales individuals.",
+          ],
+        },
+      ],
+      results: [
+        { v: "90%", k: "Of ROM auto-generated" },
+        { v: "5 days → 10 min", k: "Proposal lead time" },
+        { v: "0", k: "Technical inputs from sales" },
+        { v: "Human approval", k: "Only step that stays manual" },
+      ],
+    },
+  },
+  {
+    slug: "noc-provisioning-automation",
+    card: {
+      tag: "Automation · Cloud & Edge · NOC",
+      client: "US in-building wireless startup · United States",
+      title: "Zero-touch provisioning for DAS, ERRCS and CBRS.",
+      summary:
+        "A US in-building wireless startup replaced manual NOC provisioning with full automation — edge and cloud firewalls, VPNs, DAS/ERRCS/CBRS systems and data visualization, stood up onto its NOC platform with no manual touch.",
+      metrics: [
+        { v: "100%", k: "Of provisioning automated" },
+        { v: "Zero-touch", k: "Site onboarding" },
+      ],
+    },
+    detail: {
+      eyebrow: "Automation · Cloud & Edge · NOC",
+      client: "US in-building wireless startup",
+      region: "United States",
+      industry: "In-building wireless",
+      titleA: "Zero-touch provisioning for",
+      titleEm: "DAS, ERRCS and CBRS.",
+      subtitle:
+        "A US in-building wireless startup replaced manual NOC provisioning with full automation — edge and cloud firewalls, VPNs, DAS/ERRCS/CBRS systems and data visualization, stood up onto its NOC platform with no manual touch.",
+      sections: [
+        {
+          h: "The situation",
+          body: [
+            "The startup was bringing new DAS, ERRCS and CBRS sites online while provisioning everything by hand — edge and cloud firewalls, VPNs, NOC configuration and the data-visualization layer. Manual setup throttled how fast they could onboard customers and sites.",
+          ],
+        },
+        {
+          h: "What we did",
+          body: [
+            "We automated the entire provisioning and setup chain: edge and cloud firewall configuration, VPN establishment, NOC provisioning, and the data-visualization integration for DAS and ERRCS systems — delivered directly onto the customer's NOC platform, so new sites onboard without manual intervention.",
+          ],
+        },
+      ],
+      results: [
+        { v: "100%", k: "Of provisioning automated" },
+        { v: "Zero-touch", k: "Site onboarding" },
+        { v: "Edge + cloud + NOC", k: "Unified pipeline" },
+        { v: "DAS · ERRCS · CBRS", k: "Coverage" },
+      ],
+    },
+  },
+  {
+    slug: "vcdn-edge-migration",
+    card: {
+      tag: "Cloud & Edge · vCDN · AWS Outposts",
+      client: "Major Brazilian MNO · Brazil",
+      title: "A carrier CDN, re-platformed to the edge.",
+      summary:
+        "A major Brazilian mobile network operator set out to retire its physical CDN. We deployed BroadPeak vCDN on AWS Outposts at the edge and validated the full test book — confirming it as a viable primary vCDN.",
+      metrics: [
+        { v: "Physical → virtual", k: "CDN re-platformed" },
+        { v: "AWS Outposts", k: "Edge platform" },
+      ],
+    },
+    detail: {
+      eyebrow: "Cloud & Edge · vCDN · AWS Outposts",
+      client: "Major Brazilian MNO",
+      region: "Brazil",
+      industry: "Telecom / MNO",
+      titleA: "A carrier CDN,",
+      titleEm: "re-platformed",
+      titleB: "to the edge.",
+      subtitle:
+        "A major Brazilian mobile network operator set out to retire its physical CDN. We deployed BroadPeak vCDN on AWS Outposts at the edge and validated the full test book — confirming it as a viable primary vCDN.",
+      sections: [
+        {
+          h: "The situation",
+          body: [
+            "The operator wanted to migrate its entire physical CDN infrastructure to the cloud, but needed proof that a virtualized CDN could carry production traffic at the edge before committing to the move.",
+          ],
+        },
+        {
+          h: "What we did",
+          body: [
+            "We deployed BroadPeak vCDN on AWS Outposts as the edge platform and ran the complete validation test book. The results confirmed the solution as viable to serve as the operator's main vCDN on the edge — clearing the path to retire physical infrastructure.",
+          ],
+        },
+      ],
+      results: [
+        { v: "Physical → virtual", k: "CDN re-platformed" },
+        { v: "AWS Outposts", k: "Edge platform" },
+        { v: "Full test book", k: "Validated" },
+        { v: "Primary vCDN", k: "Confirmed viable" },
+      ],
+    },
+  },
+  {
+    slug: "latam-noc-platform",
+    card: {
+      tag: "NOC · Data Visualization · Cost Engineering",
+      client: "Major LATAM TowerCo · Latin America",
+      title: "A continent-wide NOC at zero licensing cost.",
+      summary:
+        "A major Latin American TowerCo needed observability across DAS, small cells and towers. We built and implemented a full NOC and data-visualization platform — at zero licensing cost.",
+      metrics: [
+        { v: "€0", k: "Software licensing cost" },
+        { v: "LATAM-wide", k: "Coverage" },
+      ],
+    },
+    detail: {
+      eyebrow: "NOC · Data Visualization · Cost Engineering",
+      client: "Major LATAM TowerCo",
+      region: "Latin America",
+      industry: "Towers / in-building wireless",
+      titleA: "A continent-wide NOC at",
+      titleEm: "zero licensing cost.",
+      subtitle:
+        "A major Latin American TowerCo needed observability across DAS, small cells and towers. We built and implemented a full NOC and data-visualization platform — at zero licensing cost.",
+      sections: [
+        {
+          h: "The situation",
+          body: [
+            "The TowerCo operates DAS, small-cell and tower infrastructure across Latin America with no unified operations or visibility layer. They needed full NOC and data-visualization capability — without absorbing heavy software-licensing costs.",
+          ],
+        },
+        {
+          h: "What we did",
+          body: [
+            "We designed and implemented a complete NOC and data-visualization platform spanning their DAS, small-cell and tower operations across the region — architected entirely on a zero-licensing-cost stack, so the operating capability carries no recurring software fees.",
+          ],
+        },
+      ],
+      results: [
+        { v: "€0", k: "Software licensing cost" },
+        { v: "LATAM-wide", k: "Coverage" },
+        { v: "Full NOC + data-viz", k: "Platform delivered" },
+        { v: "DAS · small cells · towers", k: "Operations" },
+      ],
+    },
+  },
+];
 
 // ─── Careers ───────────────────────────────────────────────────────
 export type Job = {

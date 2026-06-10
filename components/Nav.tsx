@@ -40,19 +40,20 @@ export default function Nav() {
     }
   };
 
-  const go = (href: string) => {
-    setOpen(false);
-    router.push(href);
-  };
-
+  // Route destinations are real <Link>s (prefetch, middle-click, a11y) — the
+  // same wiring as the wordmark and CTA. The drawer auto-closes on the
+  // pathname change below, and we also close it eagerly on click so a tap
+  // feels instant. Framework / Footprint / About stay buttons because they
+  // smooth-scroll to a section rather than change the route.
+  const close = () => setOpen(false);
   const links = (
     <>
-      <button className={pathname === "/" ? "active" : ""} onClick={() => go("/")}>Home</button>
-      <button className={pathname === "/practices" ? "active" : ""} onClick={() => go("/practices")}>Practices</button>
+      <Link className={pathname === "/" ? "active" : ""} href="/" onClick={close}>Home</Link>
+      <Link className={pathname === "/practices" ? "active" : ""} href="/practices" onClick={close}>Practices</Link>
       <button onClick={() => toSection("framework")}>Framework</button>
       <button onClick={() => toSection("industries")}>Footprint</button>
-      <button className={pathname === "/case" ? "active" : ""} onClick={() => go("/case")}>Case</button>
-      <button className={pathname.startsWith("/careers") ? "active" : ""} onClick={() => go("/careers")}>Careers</button>
+      <Link className={pathname === "/case" || pathname.startsWith("/case/") ? "active" : ""} href="/case" onClick={close}>Case</Link>
+      <Link className={pathname.startsWith("/careers") ? "active" : ""} href="/careers" onClick={close}>Careers</Link>
       <button onClick={() => toSection("about")}>About</button>
     </>
   );
