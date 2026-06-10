@@ -141,8 +141,30 @@ function setupScramble() {
   }
   wrapTextNodes(h1);
 
-  charSpans.forEach((sp) => {
+  // Pin a char's box to a fixed width so swapping in random glyphs of varying
+  // advance can't change the line width (which would flicker the headline onto
+  // a second line at the tightest two-column widths). Wide glyphs overflow the
+  // box (centered) rather than push neighbours. Cleared on resolve so the
+  // resting headline is pure natural flow — and because the locked width IS the
+  // glyph's own resting width, clearing it reflows nothing.
+  function lockWidth(sp: HTMLElement, w: number) {
+    sp.style.width = `${w}px`;
+    sp.style.textAlign = "center";
+    sp.style.overflow = "visible";
+  }
+  function unlockWidth(sp: HTMLElement) {
+    sp.style.width = "";
+    sp.style.textAlign = "";
+    sp.style.overflow = "";
+  }
+
+  // One read pass — spans still hold their final glyph here, so this is each
+  // char's exact resting width at the current breakpoint's computed font —
+  // then a write pass to lock + scramble (avoids per-span layout thrash).
+  const naturalWidths = charSpans.map((sp) => sp.getBoundingClientRect().width);
+  charSpans.forEach((sp, i) => {
     sp.dataset.target = sp.textContent || "";
+    lockWidth(sp, naturalWidths[i]);
     sp.textContent = SCRAMBLE_GLYPHS[(Math.random() * SCRAMBLE_GLYPHS.length) | 0];
     sp.style.opacity = "0.25";
   });
@@ -156,12 +178,12 @@ function setupScramble() {
       sp.style.transition = "opacity 0.35s ease-out";
       setTimeout(() => { sp.style.opacity = "1"; }, delay);
       const interval = setInterval(() => {
-        if (n >= cycles) { sp.textContent = target; clearInterval(interval); return; }
+        if (n >= cycles) { sp.textContent = target; unlockWidth(sp); clearInterval(interval); return; }
         sp.textContent = SCRAMBLE_GLYPHS[(Math.random() * SCRAMBLE_GLYPHS.length) | 0];
         n++;
       }, 40 + Math.random() * 30);
       setTimeout(() => clearInterval(interval), delay + cycles * 55);
-      setTimeout(() => { sp.textContent = target; }, delay + cycles * 55 + 40);
+      setTimeout(() => { sp.textContent = target; unlockWidth(sp); }, delay + cycles * 55 + 40);
     });
   }
   setTimeout(resolveAll, 250);
@@ -171,9 +193,12 @@ function setupScramble() {
       const span = sp as HTMLElement & { _scr?: ReturnType<typeof setInterval> | null };
       if (span._scr) return;
       const target = sp.dataset.target || "";
+      // Char is at rest here, so this is its natural width — lock it for the
+      // hover scramble too, then clear (same zero-reflow guarantee).
+      lockWidth(sp, sp.getBoundingClientRect().width);
       let n = 0;
       span._scr = setInterval(() => {
-        if (n >= 4) { sp.textContent = target; clearInterval(span._scr!); span._scr = null; return; }
+        if (n >= 4) { sp.textContent = target; unlockWidth(sp); clearInterval(span._scr!); span._scr = null; return; }
         sp.textContent = SCRAMBLE_GLYPHS[(Math.random() * SCRAMBLE_GLYPHS.length) | 0];
         n++;
       }, 50);
